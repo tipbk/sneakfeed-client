@@ -1,13 +1,80 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  background-color: #E6E6E6;
+}
+
+.ql-container {
+  min-height: 5rem;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ql-editor {
+  height: 100%;
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  font-size: 20px;
+  background-color: white;
+}
+
+.ql-editor-display {
+  padding: 0 50px !important;
+}
+
+.button-margin {
+  margin: 20px 0px;
+}
+
+.global-border {
+  margin: auto;
+  max-width: 680px;
+}
+
+.generic-header {
+  font-size: 25px;
+}
+
+.generic-item {
+  margin-top: 10px;
+}
+
+.create-post-component {
+  margin-top: 30px;
+}
+
+.item-margin {
+  margin: 20px 0px
+}
+
+.username-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-image {
+  max-width: 600px;
+  max-height: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.icon-button {
+  display: flex;
+  flex-direction: row;
 }
