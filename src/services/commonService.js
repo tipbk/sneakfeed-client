@@ -3,7 +3,7 @@ import ConfigService from './configService';
 import AuthService from './authService';
 
 const instance = axios.create({
-    baseURL: "http://192.168.100.2:8080",
+    baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
 });
 
 instance.interceptors.request.use((config) => {

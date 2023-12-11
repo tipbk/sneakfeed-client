@@ -1,23 +1,25 @@
 import axios from 'axios';
 
-const url = "http://192.168.100.2:8080"
+const instance = axios.create({
+    baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
+});
 
 class AuthService {
     static register(username, password) {
-        return axios.post(`${url}/register`,{
+        return instance.post(`/register`,{
             username: username,
             password: password
         });
     }
     static login(username, password) {
-        return axios.post(`${url}/login`,{
+        return instance.post(`/login`,{
             username: username,
             password: password
         });
     }
 
     static refreshToken(refreshToken) {
-        return axios.post(`${url}/refresh`,{
+        return instance.post(`/refresh`,{
             refreshToken: refreshToken
         });
     }
