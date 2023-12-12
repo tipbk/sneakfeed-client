@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CommonService from '../services/commonService';
 import TextField from '@mui/material/TextField';
-import CustomButton from '../theme/CustomButton';
+import CustomButton from '../theme/Theme';
 
 function CreatePostPage() {
     const [content, setContent] = useState("");

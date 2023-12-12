@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CommonService from "../services/commonService";
 import { Avatar, Typography } from "@mui/material";
-import CustomButton from "../theme/CustomButton";
+import CustomButton from "../theme/Theme";
 
 export default function ProfilePage() {
     const [username, setUsername] = useState(null);

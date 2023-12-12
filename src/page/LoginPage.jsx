@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import AuthService from '../services/authService'
 import ConfigService from '../services/configService';
-import UsernamePasswordFormComponent from '../component/UsernamePasswordFormComponent';
-import CustomButton from '../theme/CustomButton';
+import LoginComponent from '../component/LoginComponent';
+import CustomButton from '../theme/Theme';
 
 function LoginPage() {
     const [username, setUsername] = useState("");
@@ -23,11 +23,7 @@ function LoginPage() {
 
     return (
         <React.Fragment>
-            <p className="generic-header">Login</p>
-            <UsernamePasswordFormComponent username={username} setUsername={setUsername} password={password} setPassword={setPassword} />
-            <div className="button-margin">
-                <CustomButton text="Submit" action={handleSubmit}></CustomButton>
-            </div>
+            <LoginComponent headerText="Login" username={username} setUsername={setUsername} password={password} setPassword={setPassword} handleSubmit={handleSubmit} buttonText="Login"/>
         </React.Fragment>
     );
 }

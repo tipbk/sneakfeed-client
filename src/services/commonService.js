@@ -22,8 +22,9 @@ instance.interceptors.response.use(null, (error) => {
             .then(response => {
                 const accessToken = response.data.data.accessToken;
                 const refreshToken = response.data.data.refreshToken;
-                ConfigService.setAccessToken(accessToken);
-                ConfigService.setRefreshToken(refreshToken);
+                const isUseSessionStorage = ConfigService.isUseSessionStorage();
+                ConfigService.setAccessToken(accessToken, isUseSessionStorage);
+                ConfigService.setRefreshToken(refreshToken, isUseSessionStorage);
                 error.config.headers.Authorization = `Bearer ${accessToken}`;
                 return axios.request(error.config);
             })

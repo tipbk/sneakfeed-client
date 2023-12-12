@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import CommonService from "../services/commonService";
 import FullPostComponent from "../component/FullPostComponent";
-import CustomButton from "../theme/CustomButton";
+import CustomButton from "../theme/Theme";
 import TextField from '@mui/material/TextField';
 import CommentComponent from "../component/CommentComponent";
 
