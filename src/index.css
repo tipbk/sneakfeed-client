@@ -1,9 +1,5 @@
 * {
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-}
-
-:root {
-  background-color: #E6E6E6;
+  font-family: helvetica,Arial,sans-serif;
 }
 
 .ql-container {
@@ -38,6 +34,7 @@
 
 .generic-header {
   font-size: 25px;
+  font-weight: 600;
 }
 
 .generic-item {
