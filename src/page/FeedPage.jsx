@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CommonService from '../services/commonService';
 import FeedPostComponent from '../component/FeedPostComponent';
 import { useNavigate } from "react-router-dom";
+import { Typography } from '@mui/material';
 
 function FeedPage() {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ function FeedPage() {
 
     return (
         <React.Fragment>
-            <p className="generic-header">FEEDS</p>
+            <Typography variant="h4" sx={{ mt: 2, mb: 2, fontWeight: 'bold' }}>FEEDS</Typography>
             {isLoading && <p>Loading...</p>}
             {isError && <p>Error</p>}
             {!isLoading && posts.length === 0 && <p>No posts found.</p>}

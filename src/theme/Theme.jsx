@@ -11,12 +11,3 @@ export default function CustomButton({ text, action }) {
         </ThemeProvider>
     );
 }
-
-export const theme = createTheme({
-    typography: {
-      fontFamily: [
-        'helvetica','Arial','sans-serif'
-      ].join(','),
-    }
-  });
-  

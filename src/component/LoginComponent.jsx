@@ -17,8 +17,6 @@ import AuthService from '../services/authService';
 import ConfigService from '../services/configService';
 import { useState } from 'react';
 
-const defaultTheme = createTheme();
-
 export default function LoginComponent() {
   const [rememberUser, setRememberUser] = useState(false);
   const handleSubmit = (event) => {
@@ -48,7 +46,6 @@ export default function LoginComponent() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -114,6 +111,5 @@ export default function LoginComponent() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }

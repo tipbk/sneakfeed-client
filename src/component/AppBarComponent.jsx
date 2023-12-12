@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,13 +15,18 @@ import { useNavigate } from "react-router-dom";
 import CommonService from '../services/commonService';
 import ConfigService from '../services/configService';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ColorModeContext } from '../App';
+import { useTheme } from '@mui/material/styles';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 
 const pages = ['Home', 'Feeds', 'Create Post'];
 const noUserPages = ['Home'];
 const noUserSettingPage = ['Register', 'Login']
 const settings = ['Profile', 'Logout'];
 
-function AppBarComponent({ currentUser, setCurrentUser}) {
+function AppBarComponent({ currentUser, setCurrentUser }) {
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
   const navigate = useNavigate();
 
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -99,6 +104,11 @@ function AppBarComponent({ currentUser, setCurrentUser}) {
             >
               SNEAKFEED
             </Typography>
+            <Box>
+              <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {currentUser && pages.map((page) => (
                 <Button
@@ -119,6 +129,7 @@ function AppBarComponent({ currentUser, setCurrentUser}) {
                 </Button>
               ))}
             </Box>
+            
 
             <Box sx={{ flexGrow: 0 }}>
               { currentUser && <Tooltip title="Open settings">
