@@ -22,10 +22,8 @@ export default function FullPostComponent({ countComment ,countLike, setCountLik
     } else {
       setCountLike(countLike + 1)
     }
+    setIsLike(!isLike)
     CommonService.toggleLikePost(postID)
-    .then(response => {
-        setIsLike(response.data.data.isLike);
-    })
     .catch(error => {
         alert(error);
     })
