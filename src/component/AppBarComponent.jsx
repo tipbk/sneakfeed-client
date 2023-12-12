@@ -14,6 +14,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from "react-router-dom";
 import CommonService from '../services/commonService';
 import ConfigService from '../services/configService';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const pages = ['Home', 'Feeds', 'Create Post'];
 const noUserPages = ['Home'];
@@ -74,93 +75,96 @@ function AppBarComponent({ currentUser, setCurrentUser}) {
   };
 
   return (
-    <AppBar style={{ background: 'black' }} position="sticky">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href=""
-            onClick={handleNavMenu}
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            SNEAKFEED
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {currentUser && pages.map((page) => (
-              <Button
-                key={page}
-                onClick={(e) => handleNavMenu(page)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-            {!currentUser && noUserPages.map((page) => (
-              <Button
-                key={page}
-                onClick={(e) => handleNavMenu(page)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            { currentUser && <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={ currentUser && currentUser.username } src={ (currentUser && currentUser.profileImage) || "/empty.jpg"} />
-              </IconButton>
-            </Tooltip> }
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            { !currentUser && 
-            noUserSettingPage.map((page) => (
-              <Button
-                key={page}
-                onClick={(e) => handleNavMenu(page)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-            </Box>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+    <React.Fragment>
+    <CssBaseline />
+      <AppBar style={{ background: 'black' }} position="sticky">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href=""
+              onClick={handleNavMenu}
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={(e) => handleNavMenu(setting)}>{setting}</Typography>
-                </MenuItem>
+              SNEAKFEED
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {currentUser && pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={(e) => handleNavMenu(page)}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
               ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              {!currentUser && noUserPages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={(e) => handleNavMenu(page)}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              { currentUser && <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={ currentUser && currentUser.username } src={ (currentUser && currentUser.profileImage) || "/empty.jpg"} />
+                </IconButton>
+              </Tooltip> }
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              { !currentUser && 
+              noUserSettingPage.map((page) => (
+                <Button
+                  key={page}
+                  onClick={(e) => handleNavMenu(page)}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              ))}
+              </Box>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center" onClick={(e) => handleNavMenu(setting)}>{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </React.Fragment>
   );
 }
 export default AppBarComponent;
