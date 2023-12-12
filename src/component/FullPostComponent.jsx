@@ -17,13 +17,13 @@ export default function FullPostComponent({ countComment ,countLike, setCountLik
   const [isLike, setIsLike] = useState(isLikeProp);
 
   const handleToggleLike = () => {
+    if (isLike) {
+      setCountLike(countLike - 1)
+    } else {
+      setCountLike(countLike + 1)
+    }
     CommonService.toggleLikePost(postID)
     .then(response => {
-        if (isLike) {
-          setCountLike(countLike - 1)
-        } else {
-          setCountLike(countLike + 1)
-        }
         setIsLike(response.data.data.isLike);
     })
     .catch(error => {
