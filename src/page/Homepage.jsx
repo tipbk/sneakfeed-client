@@ -18,6 +18,7 @@ function Homepage() {
                 <p>You may find that some data will be changed or lost. That's normal. I'm not gonna help you on that.</p>
                 <p>If you are recruiter and would like to try, feel free to do anything here.</p>
                 <p>This project mainly shows functionalities, not decoration.</p>
+                <p>Test new text changed</p>
                 <p>P.S. sometime you may find that you got redirect to this page because your refresh token is already expired. :)</p>
                 <p>Contact: chanathip.nate@gmail.com</p>
             </Div>
