@@ -10,15 +10,16 @@ import AppBarComponent from './component/AppBarComponent';
 import ProfilePage from './page/ProfilePage';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
+import ConfigService from './services/configService';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function App() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(ConfigService.getCurrentTheme());
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode(() => (ConfigService.toggleTheme()));
       },
     }),
     [],
