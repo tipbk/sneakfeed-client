@@ -11,11 +11,18 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import CommonService from '../services/commonService';
 import { useState } from 'react';
 import { ChatBubble, ChatBubbleOutlineOutlined } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom";
 
 
 export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment }) {
   const [isLike, setIsLike] = useState(isLikeProp);
   const [currentLikes, setCurrentLikes] = useState(totalLikes)
+
+  const navigate = useNavigate();
+
+  const handlePostNavigation = () => {
+    navigate(`/feeds/${postID}`);
+  }
 
   const handleToggleLike = () => {
     if (isLike) {
@@ -51,10 +58,10 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
     <Card className="generic-item" sx={{ width: 'auto' }}>
       <CardHeader
         avatar={
-          <Avatar alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
+          <Avatar sx={{ "&:hover": { cursor: "pointer" } }} alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
         }
-        title={ username }
-        subheader={ (datetime !== null && datetime !== "" && handleDateFormat(datetime)) || "N/A" }
+        title={ <Typography sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{username}</Typography> }
+        subheader={ ((datetime !== null && datetime !== "" && <Typography color="text.secondary" onClick={handlePostNavigation} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline", cursor: 'pointer' }}}>{handleDateFormat(datetime)}</Typography>) || <Typography color="text.secondary" onClick={handlePostNavigation}>N/A</Typography>)}
       />
       <CardContent>
         <Typography variant="p" color="text.primary">
@@ -69,7 +76,7 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
             {!isLike && <FavoriteBorderOutlinedIcon />}
           </IconButton>
           <p>{currentLikes}</p>
-          <IconButton aria-label="comment">
+          <IconButton aria-label="comment" onClick={handlePostNavigation}>
             {isComment && <ChatBubble style={{ color: 'DeepSkyBlue' }} />}
             {!isComment && <ChatBubbleOutlineOutlined />}
           </IconButton>

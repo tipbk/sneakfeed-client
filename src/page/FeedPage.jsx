@@ -39,7 +39,7 @@ function FeedPage() {
             {!isLoading && posts.length === 0 && <p>No posts found.</p>}
             {!isLoading && posts.length > 0 && // Display posts only if data is fetched and there are posts
                 posts.map((post) => (
-                    <div onClick={() => handlePostClick(post.id)}>
+                    <div>
                         <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} />
                     </div>
                 
