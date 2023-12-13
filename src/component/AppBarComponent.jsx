@@ -14,7 +14,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from "react-router-dom";
 import CommonService from '../services/commonService';
 import ConfigService from '../services/configService';
-import CssBaseline from '@mui/material/CssBaseline';
 import { ColorModeContext } from '../App';
 import { useTheme } from '@mui/material/styles';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
@@ -85,7 +84,6 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
 
   return (
     <React.Fragment>
-    <CssBaseline />
       <AppBar style={{ background: 'black' }} position="sticky">
         <Container maxWidth="xl">
           <Toolbar disableGutters>

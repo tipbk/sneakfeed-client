@@ -9,7 +9,7 @@ import PostPage from './page/PostPage';
 import AppBarComponent from './component/AppBarComponent';
 import ProfilePage from './page/ProfilePage';
 import { ThemeProvider } from '@emotion/react';
-import { createTheme } from '@mui/material';
+import { CssBaseline, createTheme } from '@mui/material';
 import ConfigService from './services/configService';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
@@ -46,6 +46,7 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
     <BrowserRouter>
     <ThemeProvider theme={theme} >
+    <CssBaseline />
     <AppBarComponent setCurrentUser={setCurrentUser} currentUser={currentUser} />
       <div className="global-border">
         <Routes>
