@@ -26,11 +26,6 @@ function FeedPage() {
         })  
     }, [])
 
-    function handlePostClick(postID) {
-        navigate(`/feeds/${postID}`);
-    }
-
-
     return (
         <React.Fragment>
             <Typography variant="h4" sx={{ mt: 2, mb: 2, fontWeight: 'bold' }}>FEEDS</Typography>
