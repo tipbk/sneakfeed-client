@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CommonService from '../services/commonService';
-import { useNavigate } from "react-router-dom";
 import { Typography } from '@mui/material';
 import FullPostComponent from '../component/FullPostComponent';
 
 function FeedPage() {
-    const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
