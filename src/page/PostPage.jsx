@@ -59,7 +59,7 @@ function PostPage() {
             {postErrorMessage !== "" && <p>{ postErrorMessage }</p>}
             {(!isPostLoading && postErrorMessage === "") && 
                 <div>
-                    <FullPostComponent isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.postImageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
+                    <FullPostComponent isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.imageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
                 </div>
             }
             <p className="generic-header">What the others think?</p>
