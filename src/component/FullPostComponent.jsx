@@ -13,14 +13,15 @@ import { useState } from 'react';
 import ReplyIcon from '@mui/icons-material/Reply';
 
 
-export default function FullPostComponent({ countComment ,countLike, setCountLike, datetime, postID, title, username, profileImage, content, isLikeProp, postImageUrl }) {
+export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl }) {
   const [isLike, setIsLike] = useState(isLikeProp);
+  const [currentLikes, setCurrentLikes] = useState(totalLikes)
 
   const handleToggleLike = () => {
     if (isLike) {
-      setCountLike(countLike - 1)
+      setCurrentLikes(currentLikes - 1)
     } else {
-      setCountLike(countLike + 1)
+      setCurrentLikes(currentLikes + 1)
     }
     setIsLike(!isLike)
     CommonService.toggleLikePost(postID)
@@ -63,15 +64,15 @@ export default function FullPostComponent({ countComment ,countLike, setCountLik
       { postImageUrl && <img className="post-image" alt="postpic" src={postImageUrl} />}
       <CardActions disableSpacing>
         <div className="icon-button">
-          <IconButton aria-label="add to favorites">
-              {isLike && <div onClick={handleToggleLike}><FavoriteOutlinedIcon /></div>}
-            {!isLike && <div onClick={handleToggleLike}><FavoriteBorderOutlinedIcon /></div>}
+          <IconButton aria-label="add to favorites" onClick={handleToggleLike}>
+              {isLike && <FavoriteOutlinedIcon style={{ color: 'red' }} />}
+            {!isLike && <FavoriteBorderOutlinedIcon />}
           </IconButton>
-          <p>{countLike}</p>
+          <p>{currentLikes}</p>
           <IconButton aria-label="comment">
             <ReplyIcon />
           </IconButton>
-          <p>{countComment}</p>
+          <p>{totalComments}</p>
         </div>
       </CardActions>
     </Card>
