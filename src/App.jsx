@@ -32,11 +32,24 @@ function App() {
   );
   const theme = useMemo(
     () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
+    {
+      if (mode === "dark") {
+        return createTheme({
+          palette: {
+            mode,
+          },
+        })
+      } else {
+        let whiteTheme = createTheme({
+          palette: {
+            mode,
+          },
+        })
+        whiteTheme.palette.background.default = "#F0F2F5";
+        return whiteTheme;
+      }
+    }
+      ,
     [mode],
   );
 
