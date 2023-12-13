@@ -10,10 +10,10 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CommonService from '../services/commonService';
 import { useState } from 'react';
-import ReplyIcon from '@mui/icons-material/Reply';
+import { ChatBubble, ChatBubbleOutlineOutlined } from '@mui/icons-material';
 
 
-export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl }) {
+export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment }) {
   const [isLike, setIsLike] = useState(isLikeProp);
   const [currentLikes, setCurrentLikes] = useState(totalLikes)
 
@@ -70,7 +70,8 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
           </IconButton>
           <p>{currentLikes}</p>
           <IconButton aria-label="comment">
-            <ReplyIcon />
+            {isComment && <ChatBubble style={{ color: 'DeepSkyBlue' }} />}
+            {!isComment && <ChatBubbleOutlineOutlined />}
           </IconButton>
           <p>{totalComments}</p>
         </div>

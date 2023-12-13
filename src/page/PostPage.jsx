@@ -15,7 +15,6 @@ function PostPage() {
     const [comment, setComment] = useState(null);
     const [newComment, setNewComment] = useState("");
     const [isCommentLoading, setIsCommentLoading] = useState(true);
-    const [countLike, setCountLike] = useState(0);
 
     function handleComment() {
         if (newComment === "") return;
@@ -31,7 +30,6 @@ function PostPage() {
     useEffect(() => {
         CommonService.getPostByID(postID)
         .then(response => {
-            setCountLike(response.data.data.totalLikes);
             setPost(response.data.data);
             setIsPostLoading(false);
         })
@@ -61,7 +59,7 @@ function PostPage() {
             {postErrorMessage !== "" && <p>{ postErrorMessage }</p>}
             {(!isPostLoading && postErrorMessage === "") && 
                 <div>
-                    <FullPostComponent totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.postImageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
+                    <FullPostComponent isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.postImageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
                 </div>
             }
             <p className="generic-header">What the others think?</p>

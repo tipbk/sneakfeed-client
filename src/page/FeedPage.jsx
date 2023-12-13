@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import CommonService from '../services/commonService';
-import FeedPostComponent from '../component/FeedPostComponent';
 import { useNavigate } from "react-router-dom";
 import { Typography } from '@mui/material';
+import FullPostComponent from '../component/FullPostComponent';
 
 function FeedPage() {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ function FeedPage() {
             {!isLoading && posts.length > 0 && // Display posts only if data is fetched and there are posts
                 posts.map((post) => (
                     <div onClick={() => handlePostClick(post.id)}>
-                        <FeedPostComponent key={post.id} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} />
+                        <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} />
                     </div>
                 
             ))}
