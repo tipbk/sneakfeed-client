@@ -19,7 +19,13 @@ function App() {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode(() => (ConfigService.toggleTheme()));
+        setMode((prevMode) => {
+          if (prevMode === 'light') {
+            localStorage.setItem("theme", 'dark');
+          } else {
+            localStorage.setItem("theme", 'light');
+          }
+          return prevMode === 'light' ? 'dark' : 'light'});
       },
     }),
     [],

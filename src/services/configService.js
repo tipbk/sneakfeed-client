@@ -46,17 +46,6 @@ class ConfigService {
         }
         return currentTheme;
     }
-
-    static toggleTheme() {
-        const currentTheme = localStorage.getItem("theme");
-        if (currentTheme === "" || currentTheme === null || currentTheme === "light") {
-            localStorage.setItem("theme", "dark");
-            return "dark"
-        } else {
-            localStorage.setItem("theme", "light");
-            return "light"
-        }
-    }
 }
 
 export default ConfigService;
