@@ -32,6 +32,9 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   useEffect(() => {
+    if (ConfigService.getAccessToken() === "" || ConfigService.getAccessToken() === null) {
+      return
+    }
     CommonService.getCurrentUser()
       .then(response => {
         setCurrentUser(response.data.data);
