@@ -115,7 +115,7 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
                 <Button
                   key={page}
                   onClick={(e) => handleNavMenu(page)}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
                 >
                   {page}
                 </Button>
@@ -124,7 +124,7 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
                 <Button
                   key={page}
                   onClick={(e) => handleNavMenu(page)}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
                 >
                   {page}
                 </Button>
@@ -144,7 +144,7 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
                 <Button
                   key={page}
                   onClick={(e) => handleNavMenu(page)}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
                 >
                   {page}
                 </Button>
@@ -168,7 +168,7 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={(e) => handleNavMenu(setting)}>
-                    <Typography textAlign="center" >{setting}</Typography>
+                    <Typography textAlign="center" sx={{fontWeight: 'bold'}}>{setting}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
