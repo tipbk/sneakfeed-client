@@ -55,6 +55,7 @@ export default function CreatePostComponent() {
         <React.Fragment>
             <Typography align='right' variant='inherit'>{content.length}/50</Typography>
             <TextField
+                autoFocus
                 sx={{ mt: 1 }}
                 onChange={(e) => handleChangeContent(e.target.value)}
                 id="outlined-multiline-static"
