@@ -83,6 +83,13 @@ class CommonService {
             imageBase64: base64string
         })
     }
+
+    static capitalizeFirstCharacter(input) {
+        if (input.length === 0) {
+            return input
+        }
+        return input[0].toUpperCase() + input.slice(1);
+    }
 }
 
 export default CommonService;
