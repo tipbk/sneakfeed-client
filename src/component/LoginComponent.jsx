@@ -16,20 +16,23 @@ import { Copyright } from './CommonComponent';
 import AuthService from '../services/authService';
 import ConfigService from '../services/configService';
 import { useState } from 'react';
+import { useSnackbar } from 'notistack';
+import CommonService from '../services/commonService';
 
 export default function LoginComponent() {
   const [rememberUser, setRememberUser] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username = data.get('username');
     const password = data.get('password');
     if (username === null || username === "") {
-        alert("username cannot be empty");
+      enqueueSnackbar('Username cannot be empty', { variant: 'error' });
         return
     }
     if (password === null || password === "") {
-        alert("password cannot be empty");
+      enqueueSnackbar('Password cannot be empty', { variant: 'error' });
         return
     }
 
@@ -38,10 +41,14 @@ export default function LoginComponent() {
         .then(response => {
             ConfigService.setAccessToken(response.data.data.accessToken, !rememberUser);
             ConfigService.setRefreshToken(response.data.data.refreshToken, !rememberUser);
-            window.location.href = `/`;
+            enqueueSnackbar("Login successfully! Redirecting...", { variant: 'success', autoHideDuration: 1000 });
+            setTimeout(() => {
+              window.location.href = `/`;
+            }, 1000);
         })
-        .catch(err => {
-            alert("incorrect username or password")
+        .catch(error => {
+          const errorMessage = error.response.data.error;
+          enqueueSnackbar(CommonService.capitalizeFirstCharacter(errorMessage), { variant: 'error' });
         })
   };
 
