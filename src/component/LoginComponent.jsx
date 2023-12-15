@@ -37,7 +37,7 @@ export default function LoginComponent() {
     }
 
     // doing some api to backends
-    AuthService.login(username, password)
+    AuthService.login(username.toLowerCase(), password)
         .then(response => {
             ConfigService.setAccessToken(response.data.data.accessToken, !rememberUser);
             ConfigService.setRefreshToken(response.data.data.refreshToken, !rememberUser);
