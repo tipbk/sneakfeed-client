@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -11,41 +10,94 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import AuthService from '../services/authService';
 import { Copyright } from './CommonComponent';
+import { useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { useNavigate } from "react-router-dom";
+import CommonService from '../services/commonService';
+
 
 export default function RegisterComponent() {
+  const navigate = useNavigate();
+
+  const [usernameHelperText, setUsernameHelperText] = useState("");
+  const [usernameTextError, setUsernameTextError] = useState(false);
+  const [emailHelperText, setEmailHelperText] = useState("");
+  const [emailTextError, setEmailTextError] = useState(false);
+  const [passwordHelperText, setPasswordHelperText] = useState("");
+  const [passwordTextError, setPasswordTextError] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
+
+  const loginButton = () => (
+    <Button style={{color:'#2f44ff'}} onClick={() => {navigate("/login")}}>
+      Login
+    </Button>
+  );
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username = data.get('username');
     const email = data.get('email');
     const password = data.get('password');
-    if (username === null || username === "") {
-        alert("username cannot be empty");
+    if (username === null || username === "" || usernameTextError) {
+        enqueueSnackbar('Invalid Username', { variant: 'error' });
         return
     }
-    if (email === null || email === "") {
-        alert("email cannot be empty");
+    if (email === null || email === "" || emailTextError) {
+        enqueueSnackbar('Invalid Email', { variant: 'error' });
         return
     }
-    if (password === null || password === "") {
-        alert("password cannot be empty");
+    if (password === null || password === "" || passwordTextError) {
+        enqueueSnackbar('Invalid Password', { variant: 'error' });
         return
     }
 
     // doing some api to backends
     AuthService.register(username, password)
     .then(response => {
-        alert("register successfully!");
+      enqueueSnackbar('Congratulation! Register successfully!', { variant: 'success', action: loginButton });
     })
-    .catch(err => {
-        alert("cannot register");
+    .catch(error => {
+      const errorText = CommonService.capitalizeFirstCharacter(error.response.data.error);
+      enqueueSnackbar(errorText, { variant: 'error' });
     })
-
   };
+
+  const validateEmail = (input) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!input.match(emailRegex)) {
+      setEmailHelperText("Email address is not valid.");
+      setEmailTextError(true);
+      return;
+    }
+    setEmailHelperText("");
+    setEmailTextError(false);
+  }
+
+  const validatePassword = (input) => {
+    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    if (!input.match(passwordRegex)) {
+      setPasswordHelperText("Password must be 6-16 characters which can contains a-z, A-Z, 0-9, special character [!,@,#,$,%,^,&,*] only.");
+      setPasswordTextError(true);
+      return;
+    }
+    setPasswordHelperText("");
+    setPasswordTextError(false);
+  }
+
+  const validateUsername = (input) => {
+    if (!input.match(/^[0-9a-z]{5,15}$/)) {
+        setUsernameHelperText("Username must be 5-15 characters which can contains a-z or 0-9 only.");
+        setUsernameTextError(true);
+        return;
+    }
+
+    setUsernameHelperText("");
+    setUsernameTextError(false);
+  }
 
   return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -69,6 +121,9 @@ export default function RegisterComponent() {
                   id="username"
                   label="Username"
                   name="username"
+                  helperText={usernameHelperText}
+                  error={usernameTextError}
+                  onChange={(e) => {validateUsername(e.target.value)}}
                   autoFocus
                 />
               </Grid>
@@ -80,6 +135,9 @@ export default function RegisterComponent() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  helperText={emailHelperText}
+                  error={emailTextError}
+                  onChange={(e) => {validateEmail(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -91,6 +149,9 @@ export default function RegisterComponent() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  helperText={passwordHelperText}
+                  error={passwordTextError}
+                  onChange={(e) => {validatePassword(e.target.value)}}
                 />
               </Grid>
             </Grid>

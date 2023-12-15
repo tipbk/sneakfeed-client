@@ -11,6 +11,7 @@ import ProfilePage from './page/ProfilePage';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, createTheme } from '@mui/material';
 import ConfigService from './services/configService';
+import { SnackbarProvider } from 'notistack';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -56,6 +57,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   return (
     <React.Fragment>
+    <SnackbarProvider anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}>
     <ColorModeContext.Provider value={colorMode}>
     <BrowserRouter>
     <ThemeProvider theme={theme} >
@@ -76,6 +81,7 @@ function App() {
     
     </BrowserRouter>
     </ColorModeContext.Provider>
+    </SnackbarProvider>
     </React.Fragment>
   );
 }
