@@ -53,7 +53,7 @@ export default function RegisterComponent() {
     }
 
     // doing some api to backends
-    AuthService.register(username, password)
+    AuthService.register(username, password, email)
     .then(response => {
       enqueueSnackbar('Congratulation! Register successfully!', { variant: 'success', action: loginButton });
     })
