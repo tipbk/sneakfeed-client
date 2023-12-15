@@ -5,10 +5,11 @@ const instance = axios.create({
 });
 
 class AuthService {
-    static register(username, password) {
+    static register(username, password, email) {
         return instance.post(`/register`,{
             username: username,
-            password: password
+            password: password,
+            email: email
         });
     }
     static login(username, password) {
