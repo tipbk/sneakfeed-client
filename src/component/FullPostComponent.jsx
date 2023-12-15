@@ -65,7 +65,9 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
       />
       <CardContent>
         <Typography variant="p" color="text.primary">
-          { content }
+          <pre style={{ fontFamily: 'inherit' }}>
+              {content}
+          </pre>
         </Typography>
       </CardContent>
       { postImageUrl && <img className="post-image" alt="postpic" src={postImageUrl} />}

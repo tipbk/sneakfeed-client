@@ -51,16 +51,16 @@ function CreatePostPage() {
     return (
         <React.Fragment>
             <div className="create-post-component">
-            <TextField onChange={(e) => {
-                handleChangeContent(e.target.value)
-            }}
-            required
-            id="standard-required"
-            label="Post Content"
-            inputProps={{ maxLength: 50, style: {fontSize: 30} }}
-            fullWidth
-            defaultValue={content}
-            variant="standard"
+            <TextField
+                onChange={(e) => handleChangeContent(e.target.value)}
+                id="standard-multiline-static"
+                label="Multiline"
+                multiline
+                rows={4}
+                defaultValue="Default Value"
+                inputProps={{ maxLength: 50 }}
+                fullWidth
+                variant="standard"
             />
                 <p>{content.length}/50</p>
             </div>
