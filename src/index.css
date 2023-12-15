@@ -27,6 +27,14 @@
 }
 
 .post-image {
+  max-width: 600px;
+  max-height: 600px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-preview-image {
   max-width: 60px;
   max-height: 60px;
   display: block;

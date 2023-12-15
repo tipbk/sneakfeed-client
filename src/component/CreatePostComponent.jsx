@@ -81,8 +81,7 @@ export default function CreatePostComponent() {
                 { file && 
                 <Box sx={{ border: 1 , borderColor: 'primary.main', borderRadius: '16px' }} style={{ display: 'flex', flexDirection: 'row'}} height='100px' width='100px' alignItems='center' justifyContent='center'>
                     <Box>
-                        
-                        <img className="post-image" alt="postpic" src={file} />
+                        <img className="post-preview-image" alt="postpic" src={file} />
                     </Box>
                 </Box>
                 }
