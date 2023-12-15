@@ -16,10 +16,6 @@
   margin-top: 10px;
 }
 
-.create-post-component {
-  margin-top: 30px;
-}
-
 .item-margin {
   margin: 20px 0px
 }
@@ -31,11 +27,9 @@
 }
 
 .post-image {
-  max-width: 600px;
-  max-height: 600px;
+  max-width: 60px;
+  max-height: 60px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .center {
