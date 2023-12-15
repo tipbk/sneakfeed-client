@@ -34,7 +34,7 @@ export default function ProfilePage() {
     };
 
     function handleUpdateProfile() {
-        CommonService.patchProfile(file)
+        CommonService.updateProfileImage(file)
         .then(response => {
             window.location.href = "/profile"
         })
