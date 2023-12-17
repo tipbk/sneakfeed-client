@@ -1,11 +1,13 @@
-import { Avatar, Button, TextField, Typography } from "@mui/material";
+import { Avatar, Button, TextField } from "@mui/material";
 import React, { useRef } from "react";
 import { useState } from "react";
 import CommonService from "../services/commonService";
 import { useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
+import { useSnackbar } from 'notistack';
 
 export default function ProfileEditorComponent() {
+    const { enqueueSnackbar } = useSnackbar();
     const [username, setUsername] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [profileImage, setProfileImage] = useState(null);
@@ -43,7 +45,7 @@ export default function ProfileEditorComponent() {
             window.location.href = "/profile"
         })
         .catch(error => {
-            alert("cannot update. please try again later")
+            enqueueSnackbar("Cannot update. Please try again later.", { variant: 'error' })
         })
     }
 
@@ -57,7 +59,7 @@ export default function ProfileEditorComponent() {
             }
         )
         .catch((error) => {
-            alert("please relogin again")
+            enqueueSnackbar("Session expired. Please login again.", { variant: 'error' })
             window.location.href = "/"
         })
     }, []);
