@@ -46,7 +46,6 @@ export default function ProfileEditorComponent() {
         CommonService.updateProfile(file, displayName)
         .then(response => {
             window.location.href = "/profile";
-            setLoadingApplyChange(false);
         })
         .catch(error => {
             enqueueSnackbar("Cannot update. Please try again later.", { variant: 'error' })
