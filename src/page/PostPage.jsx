@@ -2,12 +2,14 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import CommonService from "../services/commonService";
 import FullPostComponent from "../component/FullPostComponent";
-import CustomButton from "../theme/Theme";
 import TextField from '@mui/material/TextField';
 import CommentComponent from "../component/CommentComponent";
+import { LoadingButton } from "@mui/lab";
+import { useSnackbar } from "notistack";
 
 function PostPage() {
     const { postID } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [post, setPost] = useState("");
     const [isPostLoading, setIsPostLoading] = useState(true);
@@ -15,15 +17,21 @@ function PostPage() {
     const [comment, setComment] = useState(null);
     const [newComment, setNewComment] = useState("");
     const [isCommentLoading, setIsCommentLoading] = useState(true);
+    const [loadingSubmitComment, setLoadingSubmitComment] = useState(false);
 
     function handleComment() {
-        if (newComment === "") return;
+        setLoadingSubmitComment(true);
+        if (newComment === "") {
+            setLoadingSubmitComment(false);
+            return;
+        }
         CommonService.addComment(postID, newComment)
         .then(response => {
             window.location.reload();
         })
         .catch(error => {
-            alert("there was some error. please try again.")
+            setLoadingSubmitComment(false);
+            enqueueSnackbar("There was some error. Please try again.", { variant: "error" })
         });
     }
 
@@ -79,9 +87,7 @@ function PostPage() {
             defaultValue={newComment}
             onChange={(e) => {setNewComment(e.target.value)}}
             />
-            <div className="button-margin">
-                <CustomButton text="Comment!" action={handleComment} />
-            </div>
+            <LoadingButton loading={loadingSubmitComment} style={{float:'right'}} sx={{mt: 2}} variant="contained" onClick={(e) => {handleComment(e)}}>Comment!</LoadingButton>
 
         </React.Fragment>
     );
