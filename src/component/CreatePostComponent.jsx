@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import CommonService from '../services/commonService';
 import TextField from '@mui/material/TextField';
 import ImageIcon from '@mui/icons-material/Image';
-import { Box, Button, Input, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useRef } from 'react';
+import { LoadingButton } from '@mui/lab';
+import { useSnackbar } from 'notistack';
 
 export default function CreatePostComponent() {
+    const { enqueueSnackbar } = useSnackbar();
+    const [loadingCreatePost, setLoadingCreatePost] = useState(false);
     const [content, setContent] = useState("");
     const [file, setFile] = useState(null);
     const fileInput = useRef();
@@ -41,13 +45,18 @@ export default function CreatePostComponent() {
     }
 
     function handleSubmit() {
+        setLoadingCreatePost(true);
         CommonService.createPost(content, file)
         .then(response => {
             const postID = response.data.data;
-            window.location.href = `/feeds/${postID}`;
+            enqueueSnackbar("Post created successfully! Redirecting to post...", { variant: "success" });
+            setTimeout(() => {
+                window.location.href = `/feeds/${postID}`;
+            }, 2000);
         })
         .catch(error => {
             alert("Cannot publish a post. Please try again later");
+            setLoadingCreatePost(false);
         })
     }
 
@@ -88,16 +97,9 @@ export default function CreatePostComponent() {
                 }
             </Box>
             
-            
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 2 }}
-              onClick={handleSubmit}
-            >
-              Post!
-            </Button>
+            <LoadingButton onClick={handleSubmit} type="submit" fullWidth variant="contained"  sx={{ mt: 2 }} loading={loadingCreatePost}>
+                Post!
+            </LoadingButton>
         </React.Fragment>
     );
 }
