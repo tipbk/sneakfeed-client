@@ -11,28 +11,32 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Copyright } from './CommonComponent';
 import AuthService from '../services/authService';
 import ConfigService from '../services/configService';
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import CommonService from '../services/commonService';
+import { LoadingButton } from '@mui/lab';
 
 export default function LoginComponent() {
   const [rememberUser, setRememberUser] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [loadingLogin, setLoadingLogin] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoadingLogin(true);
     const data = new FormData(event.currentTarget);
     const username = data.get('username');
     const password = data.get('password');
     if (username === null || username === "") {
       enqueueSnackbar('Username cannot be empty', { variant: 'error' });
+      setLoadingLogin(false);
         return
     }
     if (password === null || password === "") {
       enqueueSnackbar('Password cannot be empty', { variant: 'error' });
+      setLoadingLogin(false);
         return
     }
 
@@ -48,6 +52,7 @@ export default function LoginComponent() {
         })
         .catch(error => {
           const errorMessage = error.response.data.error;
+          setLoadingLogin(false);
           enqueueSnackbar(CommonService.capitalizeFirstCharacter(errorMessage), { variant: 'error' });
         })
   };
@@ -94,14 +99,9 @@ export default function LoginComponent() {
               control={<Checkbox value={rememberUser} onChange={(e) => setRememberUser(!rememberUser)} color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Login
-            </Button>
+            <LoadingButton type="submit" fullWidth variant="contained"  sx={{ mt: 3, mb: 2 }} loading={loadingLogin}>
+                Login
+            </LoadingButton>
             <Grid container>
               {/* <Grid item xs>
                 <Link href="#" variant="body2">
