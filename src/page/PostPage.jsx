@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import CommentComponent from "../component/CommentComponent";
 import { LoadingButton } from "@mui/lab";
 import { useSnackbar } from "notistack";
+import { Box, CircularProgress } from "@mui/material";
 
 function PostPage() {
     const { postID } = useParams();
@@ -63,21 +64,25 @@ function PostPage() {
     }, [postID]);
     return (
         <React.Fragment>
-            {isPostLoading && <p>Loading...</p>}
+            {isPostLoading && <Box sx={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='center'>
+                <CircularProgress />
+            </Box>}
             {postErrorMessage !== "" && <p>{ postErrorMessage }</p>}
             {(!isPostLoading && postErrorMessage === "") && 
                 <div>
-                    <FullPostComponent isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.imageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
+                    <FullPostComponent displayName={post.displayName} isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.imageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
                 </div>
             }
             <p className="generic-header">What the others think?</p>
-            {isCommentLoading && <p className="main-content-component">Loading comments...</p>}
+            {isCommentLoading && <Box sx={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='center'>
+                <CircularProgress />
+            </Box>}
             {comment !== null && comment.length === 0 && <p className="main-content-component">No comment yet. Wanna be the first one?</p>}
             {comment !== null && comment.length >= 0 && 
                 
                 comment.map((c) => 
                 <div key={ c.commentID } className="item-margin">
-                    <CommentComponent username={c.username} content={c.content} datetime={c.createdDatetime} profileImage={c.profileImage}/>
+                    <CommentComponent displayName={c.displayName} username={c.username} content={c.content} datetime={c.createdDatetime} profileImage={c.profileImage}/>
                 </div>
             )}
             <TextField

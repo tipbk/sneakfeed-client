@@ -14,7 +14,7 @@ import { ChatBubble, ChatBubbleOutlineOutlined } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
 
 
-export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment }) {
+export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment, displayName }) {
   const [isLike, setIsLike] = useState(isLikeProp);
   const [currentLikes, setCurrentLikes] = useState(totalLikes)
 
@@ -60,7 +60,7 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
         avatar={
           <Avatar sx={{ "&:hover": { cursor: "pointer" } }} alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
         }
-        title={ <Typography sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{username}</Typography> }
+        title={ <Typography sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{CommonService.handleDisplayName(displayName, username)}</Typography> }
         subheader={ ((datetime !== null && datetime !== "" && <Typography color="text.secondary" onClick={handlePostNavigation} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline", cursor: 'pointer' }}}>{handleDateFormat(datetime)}</Typography>) || <Typography color="text.secondary" onClick={handlePostNavigation}>N/A</Typography>)}
       />
       <CardContent>

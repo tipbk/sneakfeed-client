@@ -5,8 +5,9 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import CommonService from '../services/commonService';
 
-export default function CommentComponent({username, profileImage, datetime, content}) {
+export default function CommentComponent({username, profileImage, datetime, content, displayName}) {
     const handleDateFormat = (datetimeString) => {
         const dateObject = new Date(datetimeString);
         const formatter = new Intl.DateTimeFormat("en-US", {
@@ -29,7 +30,7 @@ export default function CommentComponent({username, profileImage, datetime, cont
                 avatar={
                 <Avatar alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
                 }
-                title={username}
+                title={ <Typography sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{CommonService.handleDisplayName(displayName, username)}</Typography> }
                 subheader={ (datetime !== null && datetime !== undefined && datetime !== "" && handleDateFormat(datetime)) || "N/A" }
             />
             <CardContent>

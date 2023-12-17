@@ -91,6 +91,13 @@ class CommonService {
         }
         return input[0].toUpperCase() + input.slice(1);
     }
+
+    static handleDisplayName(displayName, username) {
+        if (displayName) {
+            return `${displayName} a.k.a. ${username}`;
+        }
+        return username;
+    }
 }
 
 export default CommonService;
