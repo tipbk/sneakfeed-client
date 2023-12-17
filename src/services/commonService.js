@@ -78,9 +78,10 @@ class CommonService {
         })
     }
 
-    static updateProfileImage(base64string) {
-        return instance.patch(`/profiles/image`, {
-            imageBase64: base64string
+    static updateProfile(base64string , displayName) {
+        return instance.patch(`/profiles`, {
+            imageBase64: base64string,
+            displayName: displayName,
         })
     }
 
