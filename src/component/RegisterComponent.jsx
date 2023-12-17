@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from "react-router-dom";
 import CommonService from '../services/commonService';
+import { LoadingButton } from '@mui/lab';
 
 
 export default function RegisterComponent() {
@@ -25,6 +26,7 @@ export default function RegisterComponent() {
   const [emailTextError, setEmailTextError] = useState(false);
   const [passwordHelperText, setPasswordHelperText] = useState("");
   const [passwordTextError, setPasswordTextError] = useState("");
+  const [loadingRegister, setLoadingRegister] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const loginButton = () => (
@@ -35,31 +37,39 @@ export default function RegisterComponent() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoadingRegister(true);
     const data = new FormData(event.currentTarget);
     const username = data.get('username');
     const email = data.get('email');
     const password = data.get('password');
     if (username === null || username === "" || usernameTextError) {
         enqueueSnackbar('Invalid Username', { variant: 'error' });
+        setLoadingRegister(false);
         return
     }
     if (email === null || email === "" || emailTextError) {
         enqueueSnackbar('Invalid Email', { variant: 'error' });
+        setLoadingRegister(false);
         return
     }
     if (password === null || password === "" || passwordTextError) {
         enqueueSnackbar('Invalid Password', { variant: 'error' });
+        setLoadingRegister(false);
         return
     }
 
     // doing some api to backends
     AuthService.register(username, password, email)
     .then(response => {
-      enqueueSnackbar('Congratulation! Register successfully!', { variant: 'success', action: loginButton });
+      enqueueSnackbar('Congratulation! Register successfully! Redirecting to Login page...', { variant: 'success' });
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
     })
     .catch(error => {
       const errorText = CommonService.capitalizeFirstCharacter(error.response.data.error);
       enqueueSnackbar(errorText, { variant: 'error' });
+      setLoadingRegister(false);
     })
   };
 
@@ -155,14 +165,9 @@ export default function RegisterComponent() {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <LoadingButton type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} loading={loadingRegister}>
               Register
-            </Button>
+            </LoadingButton>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
