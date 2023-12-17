@@ -10,6 +10,7 @@ import { useSnackbar } from 'notistack';
 export default function CreatePostComponent() {
     const { enqueueSnackbar } = useSnackbar();
     const [loadingCreatePost, setLoadingCreatePost] = useState(false);
+    const [postCreated, setPostCreated] = useState(false);
     const [content, setContent] = useState("");
     const [file, setFile] = useState(null);
     const fileInput = useRef();
@@ -49,6 +50,8 @@ export default function CreatePostComponent() {
         CommonService.createPost(content, file)
         .then(response => {
             const postID = response.data.data;
+            setPostCreated(true);
+            setLoadingCreatePost(false);
             enqueueSnackbar("Post created successfully! Redirecting to post...", { variant: "success" });
             setTimeout(() => {
                 window.location.href = `/feeds/${postID}`;
@@ -97,7 +100,7 @@ export default function CreatePostComponent() {
                 }
             </Box>
             
-            <LoadingButton onClick={handleSubmit} type="submit" fullWidth variant="contained"  sx={{ mt: 2 }} loading={loadingCreatePost}>
+            <LoadingButton disabled={postCreated} onClick={handleSubmit} type="submit" fullWidth variant="contained"  sx={{ mt: 2 }} loading={loadingCreatePost}>
                 Post!
             </LoadingButton>
         </React.Fragment>
