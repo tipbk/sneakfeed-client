@@ -23,6 +23,7 @@ export default function LoginComponent() {
   const [rememberUser, setRememberUser] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loginSucceed, setLoginSucceed] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoadingLogin(true);
@@ -43,12 +44,14 @@ export default function LoginComponent() {
     // doing some api to backends
     AuthService.login(username.toLowerCase(), password)
         .then(response => {
+            setLoadingLogin(false);
+            setLoginSucceed(true);
             ConfigService.setAccessToken(response.data.data.accessToken, !rememberUser);
             ConfigService.setRefreshToken(response.data.data.refreshToken, !rememberUser);
-            enqueueSnackbar("Login successfully! Redirecting...", { variant: 'success', autoHideDuration: 1000 });
+            enqueueSnackbar("Login successfully! Redirecting...", { variant: 'success', autoHideDuration: 2000 });
             setTimeout(() => {
               window.location.href = `/`;
-            }, 1000);
+            }, 2000);
         })
         .catch(error => {
           const errorMessage = error.response.data.error;
@@ -99,7 +102,7 @@ export default function LoginComponent() {
               control={<Checkbox value={rememberUser} onChange={(e) => setRememberUser(!rememberUser)} color="primary" />}
               label="Remember me"
             />
-            <LoadingButton type="submit" fullWidth variant="contained"  sx={{ mt: 3, mb: 2 }} loading={loadingLogin}>
+            <LoadingButton disabled={loginSucceed} type="submit" fullWidth variant="contained"  sx={{ mt: 3, mb: 2 }} loading={loadingLogin}>
                 Login
             </LoadingButton>
             <Grid container>

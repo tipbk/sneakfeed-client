@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -27,13 +26,8 @@ export default function RegisterComponent() {
   const [passwordHelperText, setPasswordHelperText] = useState("");
   const [passwordTextError, setPasswordTextError] = useState("");
   const [loadingRegister, setLoadingRegister] = useState(false);
+  const [registerSucceed, setRegisterSucceed] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-
-  const loginButton = () => (
-    <Button style={{color:'#2f44ff'}} onClick={() => {navigate("/login")}}>
-      Login
-    </Button>
-  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,6 +56,8 @@ export default function RegisterComponent() {
     AuthService.register(username, password, email)
     .then(response => {
       enqueueSnackbar('Congratulation! Register successfully! Redirecting to Login page...', { variant: 'success' });
+      setLoadingRegister(false);
+      setRegisterSucceed(true);
       setTimeout(() => {
         window.location.href = "/login";
       }, 2000);
@@ -165,7 +161,7 @@ export default function RegisterComponent() {
                 />
               </Grid>
             </Grid>
-            <LoadingButton type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} loading={loadingRegister}>
+            <LoadingButton disabled={registerSucceed} type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} loading={loadingRegister}>
               Register
             </LoadingButton>
             <Grid container justifyContent="flex-end">
