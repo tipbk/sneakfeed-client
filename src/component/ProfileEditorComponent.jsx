@@ -5,6 +5,7 @@ import CommonService from "../services/commonService";
 import { useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { useSnackbar } from 'notistack';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export default function ProfileEditorComponent() {
     const { enqueueSnackbar } = useSnackbar();
@@ -13,6 +14,7 @@ export default function ProfileEditorComponent() {
     const [profileImage, setProfileImage] = useState(null);
     const [file, setFile] = useState(null);
     const fileInput = useRef();
+    const [loadingApplyChange, setLoadingApplyChange] = useState(false);
 
     async function getBase64(file) {
         return new Promise((resolve, reject) => {
@@ -40,13 +42,17 @@ export default function ProfileEditorComponent() {
     };
 
     function handleUpdateProfile() {
+        setLoadingApplyChange(true);
         CommonService.updateProfile(file, displayName)
         .then(response => {
-            window.location.href = "/profile"
+            window.location.href = "/profile";
+            setLoadingApplyChange(false);
         })
         .catch(error => {
             enqueueSnackbar("Cannot update. Please try again later.", { variant: 'error' })
+            setLoadingApplyChange(false);
         })
+        
     }
 
     useEffect(() => {
@@ -99,7 +105,9 @@ export default function ProfileEditorComponent() {
                         />
                 </div>
             </div>
-            <Button variant="contained" style={{float:'right'}} onClick={handleUpdateProfile}>Apply change</Button>
+            <LoadingButton style={{float:'right'}} variant="contained" loading={loadingApplyChange} onClick={handleUpdateProfile}>
+                Apply change
+            </LoadingButton>
             
         </React.Fragment>
     );
