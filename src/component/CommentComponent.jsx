@@ -6,8 +6,15 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import CommonService from '../services/commonService';
+import { useNavigate } from 'react-router-dom';
 
 export default function CommentComponent({username, profileImage, datetime, content, displayName}) {
+    const navigate = useNavigate();
+
+    const handleNavigateUser = () => {
+        navigate(`/users/${username}`);
+      }
+
     const handleDateFormat = (datetimeString) => {
         const dateObject = new Date(datetimeString);
         const formatter = new Intl.DateTimeFormat("en-US", {
@@ -28,9 +35,9 @@ export default function CommentComponent({username, profileImage, datetime, cont
         <Card className="generic-item" sx={{ width: 'auto' }}>
             <CardHeader
                 avatar={
-                <Avatar alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
+                <Avatar onClick={handleNavigateUser} sx={{ "&:hover": { cursor: "pointer" } }} alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
                 }
-                title={ <Typography sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{CommonService.handleDisplayName(displayName, username)}</Typography> }
+                title={ <Typography onClick={handleNavigateUser} sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{CommonService.handleDisplayName(displayName, username)}</Typography> }
                 subheader={ (datetime !== null && datetime !== undefined && datetime !== "" && handleDateFormat(datetime)) || "N/A" }
             />
             <CardContent>

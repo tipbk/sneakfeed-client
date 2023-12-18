@@ -102,6 +102,10 @@ class CommonService {
         }
         return username;
     }
+
+    static getUserByUsername(username) {
+        return instance.get(`/users/${username}`);
+    }
 }
 
 export default CommonService;

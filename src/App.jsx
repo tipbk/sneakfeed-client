@@ -12,6 +12,7 @@ import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, createTheme } from '@mui/material';
 import ConfigService from './services/configService';
 import { SnackbarProvider } from 'notistack';
+import UserPage from './page/UserPage';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -75,6 +76,7 @@ function App() {
           <Route path="/feeds" element={<FeedPage />} />
           <Route path="/feeds/:postID" element={<PostPage />}/>
           <Route path="/profile" element={<ProfilePage />}/>
+          <Route path="/users/:usernameParam" element={<UserPage />}/>
         </Routes>
     </div>
     </ThemeProvider>
