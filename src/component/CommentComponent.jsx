@@ -37,7 +37,7 @@ export default function CommentComponent({username, profileImage, datetime, cont
                 avatar={
                 <Avatar onClick={handleNavigateUser} sx={{ "&:hover": { cursor: "pointer" } }} alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
                 }
-                title={ <Typography onClick={handleNavigateUser} sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{CommonService.handleDisplayName(displayName, username)}</Typography> }
+                title={ <div style={{display: 'flex', flexDirection: 'row'}}><Typography onClick={handleNavigateUser} sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{displayName || username}</Typography><pre style={{margin: 0}}> </pre><Typography color="text.secondary" onClick={handleNavigateUser} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>@{username}</Typography></div> }
                 subheader={ (datetime !== null && datetime !== undefined && datetime !== "" && handleDateFormat(datetime)) || "N/A" }
             />
             <CardContent>
