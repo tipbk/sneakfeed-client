@@ -58,7 +58,7 @@ export default function CreatePostComponent() {
             }, 2000);
         })
         .catch(error => {
-            alert("Cannot publish a post. Please try again later");
+            enqueueSnackbar("Cannot publish a post. Please try again later.", { variant: "error" });
             setLoadingCreatePost(false);
         })
     }

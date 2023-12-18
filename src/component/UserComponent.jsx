@@ -29,10 +29,9 @@ export default function UserComponent() {
                 setFollowText("Follow")
             }
             setLoadingFollow(false);
-            enqueueSnackbar("Post created successfully! Redirecting to post...", { variant: "success" });
         })
         .catch(error => {
-            alert("Cannot publish a post. Please try again later");
+            enqueueSnackbar("Error. Please try again later.", { variant: "error" });
             setLoadingFollow(false);
         })
     }
