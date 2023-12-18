@@ -73,6 +73,9 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
         ConfigService.removeSession();
         navigate("/")
         break;
+      case "username":
+        navigate(`/users/${currentUser.username}`);
+        break;
       default:
         navigate("/")
     }
@@ -134,11 +137,20 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
             
 
             <Box sx={{ flexGrow: 0 }}>
-              { currentUser && <Tooltip title="Open settings">
+              { currentUser && <Box display='flex' flexDirection='row'>
+                <Button
+                  key={currentUser.username}
+                  onClick={(e) => handleNavMenu("username")}
+                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold', mr: 2 }}
+                >
+                {currentUser.username}
+              </Button>
+              <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt={ currentUser && currentUser.username } src={ (currentUser && currentUser.profileImage) || "/empty.jpg"} />
                 </IconButton>
-              </Tooltip> }
+              </Tooltip>
+              </Box> }
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               { !currentUser && 
               noUserSettingPage.map((page) => (
