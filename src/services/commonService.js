@@ -99,6 +99,12 @@ class CommonService {
     static getUserByUsername(username) {
         return instance.get(`/users/${username}`);
     }
+
+    static toggleFollowUser(followUserID) {
+        return instance.post(`/users/toggle-follow`, {
+            followUserID: followUserID,
+        });
+    }
 }
 
 export default CommonService;
