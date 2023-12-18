@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { styled } from '@mui/material/styles';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
@@ -38,6 +38,12 @@ function Homepage() {
         }
         setIsMuted(!isMuted)
     }
+
+    useEffect(() => {
+        return () => {
+            audio.current.pause();
+        }
+      }, [])
 
     
 
