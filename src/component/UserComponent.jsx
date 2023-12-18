@@ -33,7 +33,8 @@ export default function UserComponent() {
         <React.Fragment>
             <Box display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
                 <Avatar alt={username} src={profileImage} sx={{ position: 'relative',width: 256, height: 256, "&:hover": { cursor: 'pointer' } }}></Avatar>
-                <Typography sx={{ mt: 4,fontWeight: 'bold', fontSize: 'h1' } }>{CommonService.handleDisplayName(displayName, username)}</Typography>
+                <Typography sx={{ mt: 4,fontWeight: 'bold', fontSize: 'large' }}>{displayName || username}</Typography>
+                <Typography color="text.secondary" sx={{ fontSize: 'default' }}>@{username}</Typography>
             </Box>
             
             
