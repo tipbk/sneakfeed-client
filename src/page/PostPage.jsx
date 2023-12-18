@@ -6,7 +6,8 @@ import TextField from '@mui/material/TextField';
 import CommentComponent from "../component/CommentComponent";
 import { LoadingButton } from "@mui/lab";
 import { useSnackbar } from "notistack";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
+import { GenericLoading } from "../component/CommonComponent";
 
 function PostPage() {
     const { postID } = useParams();
@@ -65,7 +66,7 @@ function PostPage() {
     return (
         <React.Fragment>
             {isPostLoading && <Box sx={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='center'>
-                <CircularProgress />
+                <GenericLoading />
             </Box>}
             {postErrorMessage !== "" && <p>{ postErrorMessage }</p>}
             {(!isPostLoading && postErrorMessage === "") && 
@@ -75,7 +76,7 @@ function PostPage() {
             }
             <p className="generic-header">What the others think?</p>
             {isCommentLoading && <Box sx={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='center'>
-                <CircularProgress />
+                <GenericLoading />
             </Box>}
             {comment !== null && comment.length === 0 && <p className="main-content-component">No comment yet. Wanna be the first one?</p>}
             {comment !== null && comment.length >= 0 && 

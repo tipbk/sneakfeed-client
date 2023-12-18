@@ -1,4 +1,4 @@
-import { Link, Typography } from "@mui/material";
+import { Box, CircularProgress, Link, Typography } from "@mui/material";
 
 export function Copyright(props) {
     return (
@@ -12,3 +12,11 @@ export function Copyright(props) {
       </Typography>
     );
   }
+
+export function GenericLoading() {
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 4, mb: 4 }} alignItems='center' justifyContent='center'>
+        <CircularProgress />
+    </Box>
+  );
+}
