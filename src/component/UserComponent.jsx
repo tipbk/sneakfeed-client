@@ -16,6 +16,7 @@ export default function UserComponent() {
     const { enqueueSnackbar } = useSnackbar();
     const [isFollowed, setIsFollowed] = useState(false);
     const [followText, setFollowText] = useState("Follow");
+    const [isYourUser, setIsYourUser] = useState(false);
 
     function handleFollow() {
         setLoadingFollow(true);
@@ -44,6 +45,7 @@ export default function UserComponent() {
             setProfileImage(response.data.data.user.profileImage);
             setDisplayName(response.data.data.user.displayName);
             setIsFollowed(response.data.data.isFollowed);
+            setIsYourUser(response.data.data.isYourUser);
             if (response.data.data.isFollowed) {
                 setFollowText("Unfollow");
             }
@@ -64,7 +66,7 @@ export default function UserComponent() {
                 <Avatar alt={username} src={profileImage} sx={{ position: 'relative',width: 256, height: 256, "&:hover": { cursor: 'pointer' } }}></Avatar>
                 <Typography sx={{ mt: 4,fontWeight: 'bold', fontSize: 'large' }}>{displayName || username}</Typography>
                 <Typography color="text.secondary" sx={{ fontSize: 'default' }}>@{username}</Typography>
-                <LoadingButton color={isFollowed ? "error" : "primary"} loading={loadingFollow} onClick={handleFollow} variant="contained" sx={{ mt: 2 }}>{followText}</LoadingButton>
+                <LoadingButton disabled={isYourUser} color={isFollowed ? "error" : "primary"} loading={loadingFollow} onClick={handleFollow} variant="contained" sx={{ mt: 2 }}>{followText}</LoadingButton>
             </Box>
             
         </React.Fragment>
