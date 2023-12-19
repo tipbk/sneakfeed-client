@@ -63,6 +63,20 @@ export default function CreatePostComponent() {
         })
     }
 
+    function handlePaste(e) {
+        if (e.clipboardData.files[0]?.type.split("/")[0] === "image") {
+            getBase64(e.clipboardData.files[0])
+            .then(response => {
+                setFile(response);
+            })
+            .catch(error => {
+                setFile(null);
+            });
+            return;
+        }
+        
+    }
+
     return (
         <React.Fragment>
             <Typography align='right' variant='inherit'>{content.length}/50</Typography>
@@ -76,6 +90,7 @@ export default function CreatePostComponent() {
                 rows={4}
                 inputProps={{ maxLength: 50 }}
                 fullWidth
+                onPaste={(e) => {handlePaste(e)}}
             />
             <Box sx={{ mt: 2 }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' >
                 <Box style={{ display: 'flex', flexDirection: 'row' }} height='100px' width='100px' justifyContent='center' alignItems='center'>
