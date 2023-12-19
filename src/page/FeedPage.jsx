@@ -142,7 +142,7 @@ function FeedPage() {
                     ))}
                 </InfiniteScroll>
                 {!yourFeedHasMorePage && 
-                    <Typography sx={{textAlign: 'center', mt: 4, mb: 4}}>This is dinosaur era. Be careful with these dinosaurs. 🦕🦕🦖🌋</Typography>
+                    <Typography sx={{textAlign: 'center', mt: 4, mb: 4}}>Start following more people to see more here.</Typography>
                 }
             </Box>}
             
