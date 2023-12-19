@@ -14,7 +14,7 @@ function FeedPage() {
     const LIMIT_PER_PAGE = 8;
 
     useEffect(() => {
-        CommonService.getPosts(LIMIT_PER_PAGE, null)
+        CommonService.getPosts(LIMIT_PER_PAGE, null, "")
         .then(response => {
             setIsLoading(false);
             setPosts(response.data.data.posts);
@@ -34,7 +34,7 @@ function FeedPage() {
     }, [])
 
     const loadMore = () => {
-        CommonService.getPosts(LIMIT_PER_PAGE, posts[posts.length - 1].createdDatetime)
+        CommonService.getPosts(LIMIT_PER_PAGE, posts[posts.length - 1].createdDatetime, "")
         .then(response => {
             setIsLoading(false);
             setPosts(posts.concat(response.data.data.posts));
