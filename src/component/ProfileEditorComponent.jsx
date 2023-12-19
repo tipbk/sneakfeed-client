@@ -73,7 +73,7 @@ export default function ProfileEditorComponent() {
         <React.Fragment>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                 <div style={{position: 'relative', display: 'inline-block'}}>
-                    <Avatar alt={username} src={file || profileImage} sx={{ position: 'absolute',width: 128, height: 128, "&:hover": { cursor: 'pointer' } }}></Avatar>
+                    <Avatar alt={username} src={file || profileImage || "/nothing.jpg"} sx={{ position: 'absolute',width: 128, height: 128, "&:hover": { cursor: 'pointer' } }}></Avatar>
                     <Avatar onClick={()=>fileInput.current.click()} children={<EditIcon sx={{ fontSize: 40 }}/>} alt={username} sx={{ zIndex: 1 ,position: 'relative', opacity: 0 ,width: 128, height: 128, "&:hover": { cursor: 'pointer', opacity: 0.85 } }}></Avatar>
                     <input id="file" 
                         ref={fileInput}
