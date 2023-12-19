@@ -22,8 +22,6 @@ function FeedPage() {
 
     // YOUR FEED ZONE
     const [yourFeedPosts, setYourFeedPosts] = useState([]);
-    const [isYourFeedLoading, setIsYourFeedLoading] = useState(true);
-    const [isYourFeedError, setIsYourFeedError] = useState(false);
     const [yourFeedHasMorePage, setYourFeedHasMorePage] = useState(true);
     const [yourFeedFontWeight, setYourFeedFontWeight] = useState('default');
     const [yourFeedFontColor, setYourFeedFontColor] = useState('text.secondary');
