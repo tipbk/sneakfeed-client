@@ -68,10 +68,8 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
         subheader={ ((datetime !== null && datetime !== "" && <Typography color="text.secondary" onClick={handlePostNavigation} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline", cursor: 'pointer' }}}>{handleDateFormat(datetime)}</Typography>) || <Typography color="text.secondary" onClick={handlePostNavigation}>N/A</Typography>)}
       />
       <CardContent>
-        <Typography variant="p" color="text.primary" noWrap>
-          <pre style={{ fontFamily: 'inherit', margin: 0 }}>
-              {content}
-          </pre>
+        <Typography variant="p" color="text.primary" style={{ wordWrap: "break-word" }}>
+          {content}
         </Typography>
       </CardContent>
       { postImageUrl && <img className="post-image" alt="postpic" src={postImageUrl} />}
