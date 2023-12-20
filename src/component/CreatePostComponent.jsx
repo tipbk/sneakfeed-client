@@ -96,7 +96,7 @@ export default function CreatePostComponent() {
                     <img className="post-preview-image" alt="postpic" src={file} />
                 </Box>
             }
-            <Box sx={{ mt: 1 }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='space-between'>
+            <Box sx={{ mt: 1, ml: 1  }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='space-between'>
                 <Box style={{ display: 'flex', flexDirection: 'row' }} justifyContent='flex-start' alignItems='center'>
                     <ImageIcon style={{fontSize: 25, cursor: "pointer"}} onClick={()=>fileInput.current.click()}>
                     </ImageIcon>
