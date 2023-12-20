@@ -79,7 +79,6 @@ export default function CreatePostComponent() {
 
     return (
         <React.Fragment>
-            <Typography align='right' variant='inherit'>{content.length}/300</Typography>
             <TextField
                 autoFocus
                 sx={{ mt: 1 }}
@@ -110,9 +109,13 @@ export default function CreatePostComponent() {
                         type="file" onChange={handleFileChange}>
                     </input>
                 </Box>
-                <LoadingButton disabled={postCreated || (content.length === 0)} onClick={handleSubmit} type="submit" variant="contained" loading={loadingCreatePost}>
-                    Post!
-                </LoadingButton>
+                <Box style={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='flex-start'>
+                    <Typography align='right' variant='inherit'>{content.length}/300</Typography>
+                    <LoadingButton sx={{ml:2}} disabled={postCreated || (content.length === 0)} onClick={handleSubmit} type="submit" variant="contained" loading={loadingCreatePost}>
+                        Post!
+                    </LoadingButton>
+                </Box>
+                
             </Box>
             
             
