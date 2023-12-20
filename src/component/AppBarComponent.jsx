@@ -18,7 +18,7 @@ import { ColorModeContext } from '../App';
 import { useTheme } from '@mui/material/styles';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 
-const pages = ['Home', 'Feeds', 'Create Post'];
+const pages = ['Home', 'Feeds'];
 const noUserPages = ['Home'];
 const noUserSettingPage = ['Register', 'Login']
 const settings = ['Profile', 'Logout'];
@@ -52,9 +52,6 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
     switch(input) {
       case "Home":  
         navigate("/");
-        break;
-      case "Create Post":
-        navigate("/create-post");
         break;
       case "Feeds":
         navigate("/feeds");

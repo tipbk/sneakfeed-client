@@ -87,14 +87,18 @@ export default function CreatePostComponent() {
                 id="outlined-multiline-static"
                 label="Content"
                 multiline
-                rows={4}
                 inputProps={{ maxLength: 300 }}
                 fullWidth
                 onPaste={(e) => {handlePaste(e)}}
             />
-            <Box sx={{ mt: 2 }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' >
-                <Box style={{ display: 'flex', flexDirection: 'row' }} height='100px' width='100px' justifyContent='center' alignItems='center'>
-                    <ImageIcon style={{fontSize: 60, cursor: "pointer"}} onClick={()=>fileInput.current.click()}>
+            { file && 
+                <Box sx={{ mt: 2 }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='center'>
+                    <img className="post-preview-image" alt="postpic" src={file} />
+                </Box>
+            }
+            <Box sx={{ mt: 1 }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='space-between'>
+                <Box style={{ display: 'flex', flexDirection: 'row' }} justifyContent='flex-start' alignItems='center'>
+                    <ImageIcon style={{fontSize: 25, cursor: "pointer"}} onClick={()=>fileInput.current.click()}>
                     </ImageIcon>
                     <input id="file" 
                         ref={fileInput}
@@ -106,18 +110,12 @@ export default function CreatePostComponent() {
                         type="file" onChange={handleFileChange}>
                     </input>
                 </Box>
-                { file && 
-                <Box sx={{ border: 1 , borderColor: 'primary.main', borderRadius: '16px' }} style={{ display: 'flex', flexDirection: 'row'}} height='100px' width='100px' alignItems='center' justifyContent='center'>
-                    <Box>
-                        <img className="post-preview-image" alt="postpic" src={file} />
-                    </Box>
-                </Box>
-                }
+                <LoadingButton disabled={postCreated} onClick={handleSubmit} type="submit" variant="contained" loading={loadingCreatePost}>
+                    Post!
+                </LoadingButton>
             </Box>
             
-            <LoadingButton disabled={postCreated} onClick={handleSubmit} type="submit" fullWidth variant="contained"  sx={{ mt: 2 }} loading={loadingCreatePost}>
-                Post!
-            </LoadingButton>
+            
         </React.Fragment>
     );
 }

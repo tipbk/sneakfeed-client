@@ -3,7 +3,6 @@ import Homepage from './page/Homepage';
 import React, { useState, useMemo, createContext } from 'react';
 import RegisterPage from './page/RegisterPage';
 import LoginPage from './page/LoginPage';
-import CreatePostPage from './page/CreatePostPage';
 import FeedPage from './page/FeedPage';
 import PostPage from './page/PostPage';
 import AppBarComponent from './component/AppBarComponent';
@@ -73,7 +72,6 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/create-post" element={<CreatePostPage />} />
           <Route path="/feeds" element={<FeedPage />} />
           <Route path="/feeds/:postID" element={<PostPage />}/>
           <Route path="/profile" element={<ProfilePage />}/>

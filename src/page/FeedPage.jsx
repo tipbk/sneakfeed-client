@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import CommonService from '../services/commonService';
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import FullPostComponent from '../component/FullPostComponent';
 import CircularProgress from '@mui/material/CircularProgress';
 import InfiniteScroll from "react-infinite-scroller";
 import { GenericLoading } from '../component/CommonComponent';
+import CreatePostComponent from '../component/CreatePostComponent';
 
 const FEED_SELECTION_GLOBAL = "GLOBAL";
 const FEED_SELECTION_YOUR_FEED = "YOUR_FEED";
@@ -109,6 +110,8 @@ function FeedPage() {
 
     return (
         <React.Fragment>
+            <CreatePostComponent />
+            <Divider sx={{mt:2}} />
             <Box display='flex' flexDirection='col' justifyContent='space-between'>
                 <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_GLOBAL)}} sx={{ mt: 2 ,fontWeight: globalFeedFontWeight, color: globalFeedFontColor,"&:hover": { cursor: "pointer" } }}>Global Feed</Typography>
                 <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_YOUR_FEED)}} sx={{ mt: 2 ,fontWeight: yourFeedFontWeight, color: yourFeedFontColor, "&:hover": { cursor: "pointer" } }}>Your feed</Typography>
