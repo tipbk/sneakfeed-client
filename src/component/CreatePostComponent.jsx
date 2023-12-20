@@ -41,7 +41,7 @@ export default function CreatePostComponent() {
     };
 
     function handleChangeContent(input) {
-        if (input.length > 50) return
+        if (input.length > 300) return
         setContent(input);
     }
 
@@ -79,7 +79,7 @@ export default function CreatePostComponent() {
 
     return (
         <React.Fragment>
-            <Typography align='right' variant='inherit'>{content.length}/50</Typography>
+            <Typography align='right' variant='inherit'>{content.length}/300</Typography>
             <TextField
                 autoFocus
                 sx={{ mt: 1 }}
@@ -88,7 +88,7 @@ export default function CreatePostComponent() {
                 label="Content"
                 multiline
                 rows={4}
-                inputProps={{ maxLength: 50 }}
+                inputProps={{ maxLength: 300 }}
                 fullWidth
                 onPaste={(e) => {handlePaste(e)}}
             />
