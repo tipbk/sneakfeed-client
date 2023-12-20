@@ -7,11 +7,10 @@ import InfiniteScroll from "react-infinite-scroller";
 import { GenericLoading } from '../component/CommonComponent';
 
 const FEED_SELECTION_GLOBAL = "GLOBAL";
-const FEED_SELECTION_YOUR_FEED = "YOUR";
+const FEED_SELECTION_YOUR_FEED = "YOUR_FEED";
+const LIMIT_PER_PAGE = 8;
 
 function FeedPage() {
-    const LIMIT_PER_PAGE = 8;
-
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
