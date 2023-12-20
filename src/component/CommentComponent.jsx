@@ -5,7 +5,6 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import CommonService from '../services/commonService';
 import { useNavigate } from 'react-router-dom';
 
 export default function CommentComponent({username, profileImage, datetime, content, displayName}) {

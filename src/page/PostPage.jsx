@@ -93,7 +93,7 @@ function PostPage() {
             defaultValue={newComment}
             onChange={(e) => {setNewComment(e.target.value)}}
             />
-            <LoadingButton loading={loadingSubmitComment} style={{float:'right'}} sx={{mt: 2}} variant="contained" onClick={(e) => {handleComment(e)}}>Comment!</LoadingButton>
+            <LoadingButton disabled={newComment.length === 0} loading={loadingSubmitComment} style={{float:'right'}} sx={{mt: 2}} variant="contained" onClick={(e) => {handleComment(e)}}>Comment!</LoadingButton>
 
         </React.Fragment>
     );
