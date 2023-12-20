@@ -110,7 +110,9 @@ function FeedPage() {
 
     return (
         <React.Fragment>
-            <CreatePostComponent />
+            <Box sx={{mt: 2}}>
+                <CreatePostComponent />
+            </Box>
             <Divider sx={{mt:2}} />
             <Box display='flex' flexDirection='col' justifyContent='space-between'>
                 <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_GLOBAL)}} sx={{ mt: 2 ,fontWeight: globalFeedFontWeight, color: globalFeedFontColor,"&:hover": { cursor: "pointer" } }}>Global Feed</Typography>
