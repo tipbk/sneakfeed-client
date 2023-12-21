@@ -50,7 +50,7 @@ export default function LoginComponent() {
             ConfigService.setRefreshToken(response.data.data.refreshToken, !rememberUser);
             enqueueSnackbar("Login successfully! Redirecting...", { variant: 'success', autoHideDuration: 2000 });
             setTimeout(() => {
-              window.location.href = `/`;
+              window.location.href = `/feeds`;
             }, 2000);
         })
         .catch(error => {
