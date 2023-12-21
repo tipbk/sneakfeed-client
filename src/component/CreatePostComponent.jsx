@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CommonService from '../services/commonService';
 import TextField from '@mui/material/TextField';
 import ImageIcon from '@mui/icons-material/Image';
+import CloseIcon from '@mui/icons-material/Close';
 import { Box, Typography } from '@mui/material';
 import { useRef } from 'react';
 import { LoadingButton } from '@mui/lab';
@@ -91,9 +92,13 @@ export default function CreatePostComponent() {
                 onPaste={(e) => {handlePaste(e)}}
             />
             { file && 
-                <Box sx={{ mt: 2 }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='center'>
+            <Box display='flex' justifyContent='center' alignItems='center'>
+                <Box sx={{ mt: 2 }} style={{ display: 'inline-block', position: 'relative'}}>
+                    <CloseIcon style={{position: 'absolute', right: 0,top: 0, zIndex: 1}} sx={{ "&:hover": { cursor: "pointer" } }} onClick={() => {setFile(null)}} />
                     <img className="post-preview-image" alt="postpic" src={file} />
                 </Box>
+            </Box>
+                
             }
             <Box sx={{ mt: 1, ml: 1  }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='space-between'>
                 <Box style={{ display: 'flex', flexDirection: 'row' }} justifyContent='flex-start' alignItems='center'>
