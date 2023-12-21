@@ -21,7 +21,7 @@ import { Brightness4, Brightness7 } from '@mui/icons-material';
 const pages = ['Home', 'Feeds'];
 const noUserPages = ['Home'];
 const noUserSettingPage = ['Register', 'Login']
-const settings = ['Profile', 'Logout'];
+const settings = ['Logout'];
 
 function AppBarComponent({ currentUser, setCurrentUser }) {
   const theme = useTheme();
@@ -61,9 +61,6 @@ function AppBarComponent({ currentUser, setCurrentUser }) {
         break;
       case "Register":
         navigate("/register");
-        break;
-      case "Profile":
-        navigate("/profile");
         break;
       case "Logout":
         setCurrentUser(null);

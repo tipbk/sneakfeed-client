@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import CommonService from "../services/commonService";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { Avatar, Box, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
 
@@ -19,6 +19,7 @@ export default function UserComponent() {
     const [isYourUser, setIsYourUser] = useState(false);
     const [totalFollowers, setTotalFollowers] = useState(0);
     const [totalFollowing, setTotalFollowing] = useState(0);
+    const navigate = useNavigate();
 
     function handleFollow() {
         setLoadingFollow(true);
@@ -81,7 +82,8 @@ export default function UserComponent() {
                     </Box>
                     
                 </Box>
-                <LoadingButton disabled={isYourUser} color={isFollowed ? "error" : "primary"} loading={loadingFollow} onClick={handleFollow} variant="contained" sx={{ mt: 2 }}>{followText}</LoadingButton>
+                {!isYourUser && <LoadingButton color={isFollowed ? "error" : "primary"} loading={loadingFollow} onClick={handleFollow} variant="contained" sx={{ mt: 2 }}>{followText}</LoadingButton>}
+                {isYourUser && <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/profile")}>Edit Profile</Button>}
             </Box>
             
         </React.Fragment>
