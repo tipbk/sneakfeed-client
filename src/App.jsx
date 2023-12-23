@@ -45,9 +45,11 @@ function App() {
         let whiteTheme = createTheme({
           palette: {
             mode,
+            background: {
+              default: "#F0F2F5"
+            }
           },
         })
-        whiteTheme.palette.background.default = "#F0F2F5";
         return whiteTheme;
       }
     }

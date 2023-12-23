@@ -12,6 +12,8 @@ import CommonService from '../services/commonService';
 import { useState } from 'react';
 import { ChatBubble, ChatBubbleOutlineOutlined } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from '@mui/material';
+import CompactUserComponent from './CompactUserComponent';
 
 
 export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment, displayName }) {
@@ -64,7 +66,9 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
         avatar={
           <Avatar onClick={handleNavigateUser} sx={{ "&:hover": { cursor: "pointer" } }} alt={ username } src={ (profileImage !== "" && profileImage) || "/nothing.jpg" } />
         }
-        title={ <div style={{display: 'flex', flexDirection: 'row'}}><Typography onClick={handleNavigateUser} sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{displayName || username}</Typography><pre style={{margin: 0}}> </pre><Typography color="text.secondary" onClick={handleNavigateUser} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>@{username}</Typography></div> }
+        title={<div style={{display: 'flex', flexDirection: 'row'}}><Tooltip leaveDelay={500} enterDelay={500} enterNextDelay={500} title={<CompactUserComponent username={username} displayName={displayName} profileImage={profileImage} />} placement="top">
+           <Typography onClick={handleNavigateUser} sx={{ fontWeight: 'bold', fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>{displayName || username}</Typography></Tooltip><pre style={{margin: 0}}> </pre><Tooltip leaveDelay={500} enterDelay={500} enterNextDelay={500} title={<CompactUserComponent username={username} displayName={displayName} profileImage={profileImage} />} placement="top"><Typography color="text.secondary" onClick={handleNavigateUser} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline" , cursor: 'pointer' } }}>@{username}</Typography></Tooltip></div>
+        }
         subheader={ ((datetime !== null && datetime !== "" && <Typography color="text.secondary" onClick={handlePostNavigation} sx={{ fontSize: 'default', "&:hover": { textDecoration: "underline", cursor: 'pointer' }}}>{handleDateFormat(datetime)}</Typography>) || <Typography color="text.secondary" onClick={handlePostNavigation}>N/A</Typography>)}
       />
       <CardContent>
