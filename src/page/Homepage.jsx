@@ -42,9 +42,6 @@ function Homepage() {
                 <img onClick={playDubidubidu} style={{cursor: "pointer"}} src="https://ik.imagekit.io/tipbk/dubidubidu-cat.gif?updatedAt=1702567780242" alt="dubidubidu-cat"/>
                 {!isMuted ? <VolumeUpIcon sx={{mt:5}} /> : <VolumeMuteIcon sx={{mt:5}} />}
             </div>
-            <Tooltip leaveDelay={700} enterDelay={700} enterNextDelay={700} title={<CompactUserComponent username="admin" displayName="CHUPI CHAPA" />} placement="top">
-                <Button>top-start</Button>
-            </Tooltip>
         </React.Fragment>
     );
 }
