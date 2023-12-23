@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import { useState } from 'react';
-import { Button, Tooltip, Typography } from '@mui/material';
-import CompactUserComponent from '../component/CompactUserComponent';
+import { Typography } from '@mui/material';
 
 function Homepage() {
     const [isMuted, setIsMuted] = useState(true);
