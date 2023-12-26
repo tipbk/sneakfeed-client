@@ -188,6 +188,7 @@ export default function CreatePostComponent() {
                         aria-controls={open ? 'basic-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
+                        sx={{ "&:hover": { cursor: "pointer" } }}
                         onClick={handleClick}/>
                     <Menu
                         id="basic-menu"
