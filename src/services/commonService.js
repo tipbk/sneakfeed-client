@@ -60,10 +60,15 @@ class CommonService {
         return instance.post(`/posts/${postID}/like`);
     }
 
-    static createPost(content, imageBase64) {
+    static createPost(content, imageBase64, ogTitle, ogDescription, ogLink, ogImage, ogDomain) {
         return instance.post(`/posts`, {
             content: content,
-            imageBase64: imageBase64
+            imageBase64: imageBase64,
+            ogTitle: ogTitle,
+            ogDescription: ogDescription,
+            ogLink: ogLink,
+            ogImage: ogImage,
+            ogDomain: ogDomain,
         });
     }
 
@@ -104,6 +109,12 @@ class CommonService {
     static toggleFollowUser(followUserID) {
         return instance.post(`/users/toggle-follow`, {
             followUserID: followUserID,
+        });
+    }
+
+    static getMetadata(url) {
+        return instance.post(`/metadata`, {
+            url: url,
         });
     }
 }

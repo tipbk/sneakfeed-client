@@ -71,7 +71,7 @@ function PostPage() {
             {postErrorMessage !== "" && <p>{ postErrorMessage }</p>}
             {(!isPostLoading && postErrorMessage === "") && 
                 <div>
-                    <FullPostComponent displayName={post.displayName} isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.imageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content}/>
+                    <FullPostComponent displayName={post.displayName} isComment={post.isComment} totalComments={post.totalComments} totalLikes={post.totalLikes} postImageUrl={post.imageUrl} isLikeProp={post.isLike} datetime={post.createdDatetime} postID={postID} title={post.title} username={post.username} profileImage={post.profileImage} content={post.content} ogLink={post.ogLink} ogTitle={post.ogTitle} ogDescription={post.ogDescription} ogImage={post.ogImage} ogDomain={post.ogDomain}/>
                 </div>
             }
             <p className="generic-header">What the others think?</p>

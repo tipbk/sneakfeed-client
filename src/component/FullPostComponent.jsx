@@ -12,11 +12,12 @@ import CommonService from '../services/commonService';
 import { useState } from 'react';
 import { ChatBubble, ChatBubbleOutlineOutlined } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
-import { Tooltip } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import CompactUserComponent from './CompactUserComponent';
+import OgMetaComponent from './OgMetaComponent';
 
 
-export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment, displayName }) {
+export default function FullPostComponent({ totalComments ,totalLikes, datetime, postID, username, profileImage, content, isLikeProp, postImageUrl, isComment, displayName, ogLink, ogTitle, ogDescription, ogImage, ogDomain }) {
   const [isLike, setIsLike] = useState(isLikeProp);
   const [currentLikes, setCurrentLikes] = useState(totalLikes)
 
@@ -77,6 +78,9 @@ export default function FullPostComponent({ totalComments ,totalLikes, datetime,
         </Typography>
       </CardContent>
       { postImageUrl && <img className="post-image" alt="postpic" src={postImageUrl} />}
+      { ogLink && <Box display='flex' justifyContent='center' alignItems='center' sx={{ mt: 2 }}>
+        <OgMetaComponent ogTitle={ogTitle} ogDescription={ogDescription} ogDomain={ogDomain} ogLink={ogLink} ogImage={ogImage} />
+      </Box>}
       <CardActions disableSpacing>
         <div className="icon-button">
           <IconButton aria-label="add to favorites" onClick={handleToggleLike}>

@@ -128,7 +128,7 @@ function FeedPage() {
                 <InfiniteScroll hasMore={hasMorePage} loader={<GenericLoading />} loadMore={loadMore}>
                     {posts.map((post) => (
                         <div>
-                            <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} displayName={post.displayName} />
+                            <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} displayName={post.displayName} ogLink={post.ogLink} ogTitle={post.ogTitle} ogDescription={post.ogDescription} ogImage={post.ogImage} ogDomain={post.ogDomain} />
                         </div>
                     ))}
                 </InfiniteScroll>
@@ -141,7 +141,7 @@ function FeedPage() {
                 <InfiniteScroll hasMore={yourFeedHasMorePage} loader={<GenericLoading />} loadMore={loadMoreYourFeed}>
                     {yourFeedPosts.map((post) => (
                         <div>
-                            <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} displayName={post.displayName} />
+                            <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} displayName={post.displayName} ogLink={post.ogLink} ogTitle={post.ogTitle} ogDescription={post.ogDescription} ogImage={post.ogImage} ogDomain={post.ogDomain} />
                         </div>
                     ))}
                 </InfiniteScroll>

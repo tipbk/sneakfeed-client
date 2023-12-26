@@ -3,12 +3,33 @@ import CommonService from '../services/commonService';
 import TextField from '@mui/material/TextField';
 import ImageIcon from '@mui/icons-material/Image';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Typography } from '@mui/material';
+import { Box, Menu, Typography } from '@mui/material';
 import { useRef } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { useSnackbar } from 'notistack';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import OgMetaComponent from './OgMetaComponent';
 
 export default function CreatePostComponent() {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const [link, setLink] = useState("");
+    const [loadingLink, setLoadingLink] = useState(false);
+    const [linkAvailable, setLinkAvailable] = useState(false);
+    const [ogTitle, setOgTitle] = useState("");
+    const [ogDescription, setOgDescription] = useState("");
+    const [ogImage, setOgImage] = useState("");
+    const [ogDomain, setOgDomain] = useState("");
+
+
+
     const { enqueueSnackbar } = useSnackbar();
     const [loadingCreatePost, setLoadingCreatePost] = useState(false);
     const [postCreated, setPostCreated] = useState(false);
@@ -48,20 +69,66 @@ export default function CreatePostComponent() {
 
     function handleSubmit() {
         setLoadingCreatePost(true);
-        CommonService.createPost(content, file)
+        if (!linkAvailable) {
+            CommonService.createPost(content, file, null, null, null, null, null)
+            .then(response => {
+                const postID = response.data.data;
+                setPostCreated(true);
+                setLoadingCreatePost(false);
+                enqueueSnackbar("Post created successfully! Redirecting to post...", { variant: "success" });
+                setTimeout(() => {
+                    window.location.href = `/feeds/${postID}`;
+                }, 2000);
+            })
+            .catch(error => {
+                enqueueSnackbar("Cannot publish a post. Please try again later.", { variant: "error" });
+                setLoadingCreatePost(false);
+            })
+        } else {
+            CommonService.createPost(content, file, ogTitle, ogDescription, link, ogImage, ogDomain)
+            .then(response => {
+                const postID = response.data.data;
+                setPostCreated(true);
+                setLoadingCreatePost(false);
+                enqueueSnackbar("Post created successfully! Redirecting to post...", { variant: "success" });
+                setTimeout(() => {
+                    window.location.href = `/feeds/${postID}`;
+                }, 2000);
+            })
+            .catch(error => {
+                enqueueSnackbar("Cannot publish a post. Please try again later.", { variant: "error" });
+                setLoadingCreatePost(false);
+            })
+        }
+    }
+
+    function handleLink() {
+        setLoadingLink(true);
+        CommonService.getMetadata(link)
         .then(response => {
-            const postID = response.data.data;
-            setPostCreated(true);
-            setLoadingCreatePost(false);
-            enqueueSnackbar("Post created successfully! Redirecting to post...", { variant: "success" });
-            setTimeout(() => {
-                window.location.href = `/feeds/${postID}`;
-            }, 2000);
+            setLinkAvailable(true);
+            setLoadingLink(false);
+            const metadata = response.data.data.metadata;
+            setOgTitle(metadata.ogTitle);
+            setOgImage(metadata.image);
+            setOgDescription(metadata.ogDescription);
+            setOgDomain(metadata.domain);
+            handleClose();
         })
         .catch(error => {
-            enqueueSnackbar("Cannot publish a post. Please try again later.", { variant: "error" });
-            setLoadingCreatePost(false);
+            enqueueSnackbar("Invalid Url", { variant: "error" });
+            setLinkAvailable(false);
+            setLoadingLink(false);
         })
+    }
+
+    function removeLink() {
+        setLink("")
+        setLinkAvailable(false);
+        setOgTitle("");
+        setOgDescription("");
+        setOgImage("");
+        setOgDomain("");
     }
 
     function handlePaste(e) {
@@ -75,7 +142,6 @@ export default function CreatePostComponent() {
             });
             return;
         }
-        
     }
 
     return (
@@ -97,11 +163,16 @@ export default function CreatePostComponent() {
                     <CloseIcon style={{position: 'absolute', right: 0,top: 0, zIndex: 1}} sx={{ "&:hover": { cursor: "pointer" } }} onClick={() => {setFile(null)}} />
                     <img className="post-preview-image" alt="postpic" src={file} />
                 </Box>
-            </Box>
-                
+            </Box>    
             }
+            {linkAvailable && <Box display='flex' justifyContent='center' alignItems='center' sx={{ mt: 2 }}>
+                <Box sx={{ mt: 2 }} style={{ display: 'inline-block', position: 'relative'}}>
+                    <CloseIcon style={{position: 'absolute', right: 0,top: 0, zIndex: 1}} sx={{ "&:hover": { cursor: "pointer" } }} onClick={() => {removeLink()}} />
+                    <OgMetaComponent ogDomain={ogDomain} ogTitle={ogTitle} ogDescription={ogDescription} ogImage={ogImage} ogLink={link} />
+                </Box>
+            </Box>}
             <Box sx={{ mt: 1, ml: 1  }} style={{ display: 'flex', flexDirection: 'row'}} alignItems='center' justifyContent='space-between'>
-                <Box style={{ display: 'flex', flexDirection: 'row' }} justifyContent='flex-start' alignItems='center'>
+                <Box style={{ display: 'flex', flexDirection: 'row' }} sx={{gap: '10px'}} justifyContent='flex-start' alignItems='center'>
                     <ImageIcon style={{fontSize: 25, cursor: "pointer"}} onClick={()=>fileInput.current.click()}>
                     </ImageIcon>
                     <input id="file" 
@@ -113,6 +184,29 @@ export default function CreatePostComponent() {
                         accept="image/*"
                         type="file" onChange={handleFileChange}>
                     </input>
+                    <InsertLinkIcon id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}/>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <Box display='flex' justifyContent='center' alignItems='center'>
+                            <TextField variant="outlined" sx={{ml: 1}}
+                                size="small" onChange={(e) => {setLink(e.target.value)}} value={link}
+                            />
+                            <LoadingButton sx={{ml: 1, mr: 1}} disabled={postCreated || link.length === 0} onClick={() => {handleLink()}} type="submit" variant="contained" loading={loadingCreatePost || loadingLink}>
+                                Link
+                            </LoadingButton>
+                        </Box>
+                    </Menu>
                 </Box>
                 <Box style={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='flex-start'>
                     <Typography align='right' variant='inherit'>{content.length}/300</Typography>
