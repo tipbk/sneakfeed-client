@@ -2,6 +2,16 @@ import axios from 'axios';
 import ConfigService from './configService';
 import AuthService from './authService';
 
+const formatter = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+});
+
 const instance = axios.create({
     baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
 });
@@ -116,6 +126,31 @@ class CommonService {
         return instance.post(`/metadata`, {
             url: url,
         });
+    }
+
+    static handleDateFormat(datetimeString) {
+        const dateObject = new Date(datetimeString);
+        const formattedDate = formatter.format(dateObject);
+        return formattedDate;
+    }
+
+    static handleShowTimeFormat(datetimeString) {
+        const dateObject = new Date(datetimeString);
+        const currentTime = new Date();
+        const minutes = ((currentTime.getTime() - dateObject.getTime()) / 1000) / 60;
+        
+        if (Math.round(minutes) === 0) {
+            return "1 m"
+        } else if (Math.round(minutes) < 60) {
+            return `${Math.round(minutes)} m`
+        } else if (Math.round(minutes) < 1440) {
+            return `${Math.round(Math.round(minutes)/60)} h`
+        } else if (Math.round(minutes) < 10080) {
+            return `${Math.round(Math.round(Math.round(minutes)/60)/24)} d`
+        }
+        
+        const formattedDate = formatter.format(dateObject);
+        return formattedDate;
     }
 }
 
