@@ -114,9 +114,13 @@ function FeedPage() {
                 <CreatePostComponent />
             </Box>
             <Divider sx={{mt:2}} />
-            <Box display='flex' flexDirection='col' justifyContent='space-between'>
-                <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_GLOBAL)}} sx={{ mt: 2 ,fontWeight: globalFeedFontWeight, color: globalFeedFontColor,"&:hover": { cursor: "pointer" } }}>Global Feed</Typography>
-                <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_YOUR_FEED)}} sx={{ mt: 2 ,fontWeight: yourFeedFontWeight, color: yourFeedFontColor, "&:hover": { cursor: "pointer" } }}>Your feed</Typography>
+            <Box display='flex' width="100%">
+                <Box width="50%" display='flex' justifyContent='center' alignItems='center'>
+                    <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_GLOBAL)}} sx={{ mt: 2 ,fontWeight: globalFeedFontWeight, color: globalFeedFontColor,"&:hover": { cursor: "pointer" } }}>Global Feed</Typography>
+                </Box>
+                <Box width="50%" display='flex' justifyContent='center' alignItems='center'>
+                    <Typography variant='h6' onClick={() => {switchingFeed(FEED_SELECTION_YOUR_FEED)}} sx={{ mt: 2 ,fontWeight: yourFeedFontWeight, color: yourFeedFontColor, "&:hover": { cursor: "pointer" } }}>Your feed</Typography>
+                </Box>
             </Box>
             {feedSelection === FEED_SELECTION_GLOBAL && <Box>
                 {isLoading && <Box sx={{ display: 'flex', flexDirection: 'row' }} alignItems='center' justifyContent='center'>
