@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import CommonService from "../services/commonService";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { LoadingButton } from "@mui/lab";
+import InfiniteScroll from "react-infinite-scroller";
+import { GenericLoading } from "./CommonComponent";
+import FullPostComponent from "./FullPostComponent";
 
-export default function UserComponent() {
-    const { usernameParam } = useParams()
+const LIMIT_PER_PAGE = 8;
+
+export default function UserComponent({ usernameParam }) {
     const [username, setUsername] = useState("");
     const [userID, setUserID] = useState("");
     const [profileImage, setProfileImage] = useState("");
@@ -20,6 +24,30 @@ export default function UserComponent() {
     const [totalFollowers, setTotalFollowers] = useState(0);
     const [totalFollowing, setTotalFollowing] = useState(0);
     const navigate = useNavigate();
+
+    const [posts, setPosts] = useState([]);
+    const [hasMorePage, setHasMorePage] = useState(true);
+
+    const loadMore = () => {
+        let queryDatetime = null;
+        if (posts.length > 0) {
+            queryDatetime = posts[posts.length - 1].createdDatetime
+        }
+        CommonService.getPosts(LIMIT_PER_PAGE, queryDatetime, "USER", usernameParam)
+        .then(response => {
+            setPosts(posts.concat(response.data.data.posts));
+            // remove loading pagination
+            if (response.data.data.posts.length === response.data.data.pagination.total) {
+                setHasMorePage(false);
+            }
+        })
+        .catch(error => {
+            setPosts([]);
+            if (error.response.status === 401) {
+                window.location.href = "/login"
+            }
+        })  
+    }
 
     function handleFollow() {
         setLoadingFollow(true);
@@ -43,6 +71,10 @@ export default function UserComponent() {
     }
 
     useEffect(() => {
+        if (username !== usernameParam) {
+            setHasMorePage(true);
+            setPosts([]);
+        }
         CommonService.getUserByUsername(usernameParam)
         .then(response => {
             setUserID(response.data.data.id);
@@ -63,9 +95,10 @@ export default function UserComponent() {
             } else {
                 enqueueSnackbar(error, { variant: 'error' });
             }
-        }
-        )
-    }, [])
+        })
+        
+        loadMore();
+    }, [usernameParam])
 
     return (
         <React.Fragment>
@@ -84,7 +117,23 @@ export default function UserComponent() {
                 </Box>
                 {!isYourUser && <LoadingButton color={isFollowed ? "error" : "primary"} loading={loadingFollow} onClick={handleFollow} variant="contained" sx={{ mt: 2 }}>{followText}</LoadingButton>}
                 {isYourUser && <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/profile")}>Edit Profile</Button>}
-            </Box>
+                </Box>
+                <Typography variant='h6' sx={{ mt: 2 ,fontWeight: 'bold', color: 'text.primary' }}>Feeds</Typography>
+                <Box>
+                    <InfiniteScroll hasMore={hasMorePage} loader={<GenericLoading />} loadMore={loadMore}>
+                        {posts.map((post) => (
+                            <div>
+                                <FullPostComponent key={post.id} isComment={post.isComment} isLikeProp={post.isLike} totalComments={post.totalComments} totalLikes={post.totalLikes} datetime={post.createdDatetime} content={post.content} postID={post.id} title={post.title} username={post.username} profileImage={post.profileImage} postImageUrl={post.imageUrl} displayName={post.displayName} ogLink={post.ogLink} ogTitle={post.ogTitle} ogDescription={post.ogDescription} ogImage={post.ogImage} ogDomain={post.ogDomain} />
+                            </div>
+                        ))}
+                    </InfiniteScroll>
+                    {!hasMorePage && posts.length !== 0 &&
+                        <Typography sx={{textAlign: 'center', mt: 4, mb: 4}}>No more posts to show.</Typography>
+                    }
+                    {!hasMorePage && posts.length === 0 &&
+                        <Typography sx={{textAlign: 'center', mt: 4, mb: 4}}>No posts</Typography>
+                    }
+                </Box>
             
         </React.Fragment>
     );

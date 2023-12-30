@@ -49,11 +49,12 @@ instance.interceptors.response.use(null, (error) => {
 });
 
 class CommonService {
-    static getPosts(limit, from, filter) {
+    static getPosts(limit, from, filter, username) {
         const params = {
             limit: limit,
             from: from,
             filter: filter,
+            username: username,
         };
         return instance.get(`/posts`, {params: params});
     }
