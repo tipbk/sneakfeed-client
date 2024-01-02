@@ -1,27 +1,36 @@
-# Sneakfeed Client
+# Sneakfeed
 
-Sneakfeed is a social media application like Twitter.
-You can try it on https://sneakfeed.vercel.app/
+Sneakfeed is a social media application like Twitter that I made to learn new technologies.
 
-Sneakfeed Client needs to connect to its backend which is Sneedfeed Service. For more, please see https://github.com/tipbk/sneakfeed-service.
+https://sneakfeed.vercel.app/
 
-## How to run the project locally?
+In order to see a feed, please register and login.
 
-Create .env file on based path and add environment variable on above OR export variable as environment variables
+## Technologies
 
-Then run the following command on your based path
+In this website, we can seperate into Frontend and Backend.
 
-```
-npm i
-npm start
-```
+Frontend - I decided to use modern framework like React JS here along with MUI.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+For deployment on Frontend, I use Vercel because it is easy to deploy as I can use Vercel's pipeline without config a lot of things.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Backend - I used Gin, Go Framework.
 
-This project is deployed on Vercel.
+For DB, I decided to use MongoDB because I want to make it fast which I don't need to work with schema like Relational Database does. Moreover, I can use Cloud Version so I don't need to deploy by my own.
 
-For demo, please see https://sneakfeed.vercel.app/
+For deployment on Backend, I use Cloudrun and Google Artifact Registry using Github Action to do CI/CD.
+
+For more, please see below.
+
+- Frontend - https://github.com/tipbk/sneakfeed-client
+- Backend - https://github.com/tipbk/sneakfeed-service
+
+## Features
+
+- Access token and refresh token automatically renew on Frontend
+- Able to get OG Meta for posting
+- Able to place image from clipboard using Ctrl/Cmd + V
+- Can like, comment, follow, unfollow like Twitter (X)
+- Have 3 types of feeds. Global feed to see all posts, following feed to see posts of person you followed, your feed to see your posts.
+- Have a cat dancing at the end of this page along with music :)
+- And more!
