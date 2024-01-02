@@ -3,10 +3,14 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
+import Markdown from 'react-markdown'
+import MdService from '../services/mdService';
 
 function Homepage() {
     const [isMuted, setIsMuted] = useState(true);
     const [isMusicPlay, setIsMusicPlay] = useState(false);
+
+    const [md, setMd] = useState("");
 
     const audio = useRef(new Audio("/dubidubidu-cat.mp3"));   
     
@@ -29,14 +33,24 @@ function Homepage() {
     }
 
     useEffect(() => {
+        MdService.getIntroMarkdown()
+        .then(response => {
+            setMd(response.data);
+            console.log(md);
+        });
         return () => {
             audio.current.pause();
         }
-      }, [])
+      }, [md])
 
     return (
         <React.Fragment>
-            <Typography variant="h4" sx={{ mt: 5, mb: 10, fontWeight: 'bold', textAlign: 'center' }}>CHIPI CHIPI CHAPA CHAPA DUBI DUBI DABA DABA MAGICO MI DUBI DUBI BOOM BOOM BOOM BOOM</Typography>
+            <Markdown>{md}</Markdown>
+            <Typography>Created by</Typography>
+            <Typography>Name: Chanathip Nateprapai</Typography>
+            <Typography>Contact: chanathip.nate@gmail.com</Typography>
+            <Typography>Always available for job offer. Let's have some talk.</Typography>
+            <Typography variant="h6" sx={{ mt: 5, mb: 10, fontWeight: 'bold', textAlign: 'center' }}>This is the end. And cat is dancing. Click cat to enjoy music.</Typography>
             <div className='center'>
                 <img onClick={playDubidubidu} style={{cursor: "pointer"}} src="https://ik.imagekit.io/tipbk/dubidubidu-cat.gif?updatedAt=1702567780242" alt="dubidubidu-cat"/>
                 {!isMuted ? <VolumeUpIcon sx={{mt:5}} /> : <VolumeMuteIcon sx={{mt:5}} />}
