@@ -36,7 +36,6 @@ function Homepage() {
         MdService.getIntroMarkdown()
         .then(response => {
             setMd(response.data);
-            console.log(md);
         });
         return () => {
             audio.current.pause();
