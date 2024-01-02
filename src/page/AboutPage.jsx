@@ -12,6 +12,7 @@ export default function AboutPage() {
             <br />
             <Typography>I could say that I am passionate about technologies since I was a kid.</Typography>
             <Typography>Especially, I love to learn how things work.</Typography>
+            <br />
             <Typography>Here is my resume.</Typography><Link href="https://chanathip.pages.dev/">https://chanathip.pages.dev/</Link>
             <br />
             <br />
