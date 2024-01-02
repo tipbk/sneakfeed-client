@@ -18,6 +18,8 @@ Backend - I used Gin, Go Framework.
 
 For DB, I decided to use MongoDB because I want to make it fast which I don't need to work with schema like Relational Database does. Moreover, I can use Cloud Version so I don't need to deploy by my own.
 
+For image storage, I use ImageKit to store an image and expose it as ready-to-use url for image static file.
+
 For deployment on Backend, I use Cloudrun and Google Artifact Registry using Github Action to do CI/CD.
 
 For more, please see below.
