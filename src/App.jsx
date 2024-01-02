@@ -13,6 +13,7 @@ import ConfigService from './services/configService';
 import { SnackbarProvider } from 'notistack';
 import UserPage from './page/UserPage';
 import NotFoundPage from './page/NotFoundPage';
+import AboutPage from './page/AboutPage';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -78,6 +79,7 @@ function App() {
           <Route path="/feeds/:postID" element={<PostPage />}/>
           <Route path="/profile" element={<ProfilePage />}/>
           <Route path="/users/:usernameParam" element={<UserPage />}/>
+          <Route path="/about" element={<AboutPage />}/>
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
     </div>
