@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function AboutPage() {
     return (
@@ -13,7 +12,7 @@ export default function AboutPage() {
             <Typography>I could say that I am passionate about technologies since I was a kid.</Typography>
             <Typography>Especially, I love to learn how things work.</Typography>
             <br />
-            <Typography>Here is my resume.</Typography><Link href="https://drive.google.com/drive/folders/1hWJDnZ5SCEHfuVMJ6q_YDpdGNunJd5Uf?usp=drive_link">https://drive.google.com/drive/folders/1hWJDnZ5SCEHfuVMJ6q_YDpdGNunJd5Uf?usp=drive_link</Link>
+            <Typography>Here is my resume.</Typography><a href="https://drive.google.com/drive/folders/1hWJDnZ5SCEHfuVMJ6q_YDpdGNunJd5Uf?usp=drive_link">https://drive.google.com/drive/folders/1hWJDnZ5SCEHfuVMJ6q_YDpdGNunJd5Uf?usp=drive_link</a>
             <br />
             <br />
             <Typography>If you would like to contact me. Please send me an email. I would love to hear.</Typography>
